@@ -20,6 +20,12 @@ class ispconfig::install inherits ispconfig {
 	class { 'hostname':
 		hostname => $::ispconfig::hostname,
 		domain   => $::ispconfig::domain,
+	} ->
+
+	# CHANGE DEFAULT SHELL
+	exec { 'set-default-shell':
+		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
+		command => 'echo "dash dash/sh boolean no" | debconf-set-selections && dpkg-reconfigure dash',
 	}
 
 /*
