@@ -412,9 +412,9 @@ class ispconfig::install inherits ispconfig {
 	exec { 'xmpp-install':
 		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 		command => "luarock install lpc && adduser --no-create-home --disabled-login --gecos 'Metronome' metronome",
-	} ->
+	}
 
-	
+
 /*
 	# git
 	class { '::git':
