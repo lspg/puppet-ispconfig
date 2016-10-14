@@ -82,16 +82,17 @@ class ispconfig::source inherits ispconfig {
 	# dotdeb repository
 	class { 'dotdeb': } ->
 
-	# apt-transport-https
-	package { 'apt-transport-https':
-		ensure => 'installed',
-	} ->
-
-	Exec['apt_update'] ->
+	#Exec['apt_update'] ->
 
 	exec { 'apt_upgrade':
 		command => 'apt-get update --fix-missing && apt-get -y --force-yes upgrade',
 		path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
-		require => Exec['apt_update'],
-	}
+		#require => Exec['apt_update'],
+	} ->
+
+	# apt-transport-https
+	package { 'apt-transport-https':
+		ensure => 'installed',
+		require => Exec['apt_upgrade'],
+	} ->
 }
