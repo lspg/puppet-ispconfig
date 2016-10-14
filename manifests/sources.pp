@@ -82,6 +82,22 @@ class ispconfig::sources inherits ispconfig {
 	# dotdeb repository
 	class { 'dotdeb': } ->
 
+	# XMPP
+	apt::source { 'metronome':
+		location => 'http://packages.prosody.im/debian/',
+		release  => "jessie",
+		repos    => 'main',
+		include  => {
+			'deb' => true,
+			'src' => false,
+		},
+	} ->
+
+	apt::pin { 'metronome':
+		release => "jessie",
+		priority => 500,
+	} ->
+
 #	Exec['apt_update'] ->
 
 	exec { 'apt_upgrade':
