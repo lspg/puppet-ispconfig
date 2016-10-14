@@ -1,0 +1,17 @@
+{
+	"name": "ispconfig",
+	"version": "0.1.0",
+	"author": "Loïs PUIG",
+	"summary": "Debian 8 / ISPConfig 3 / Apache / MariaDB / PHP7",
+	"license": "MIT",
+	"source": "https://github.com/lspg/puppet-ispconfig",
+	"project_page": "https://github.com/lspg/puppet-ispconfig",
+	"issues_url": "https://github.com/lspg/puppet-ispconfig/issues",
+	"dependencies": [
+		{"name":"puppetlabs/apt","version_requirement":">= 2.2.2"},
+		{"name":"puppetlabs/ntp","version_requirement":">= 4.1.2"},
+		{"name":"puppetlabs/git","version_requirement":">= 0.4.0"},
+		{"name":"puppetlabs/mysql","version_requirement":"3.6.2"},
+		{"name":"puppetlabs/apache","version_requirement":">=1.9.0"}
+	]
+}
