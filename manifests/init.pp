@@ -4,6 +4,7 @@ class ispconfig (
 	$admin_mail = $ispconfig::params::admin_mail,
 ) inherits ispconfig::params  {
 	anchor { 'ispconfig::begin': } ->
-		class { '::ispconfig::source': }
+		class { '::ispconfig::sources': } ->
+		class { '::ispconfig::install': }
 	anchor { 'ispconfig::end': }
 }
