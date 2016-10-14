@@ -18,9 +18,9 @@ class ispconfig::install inherits ispconfig {
 
 	# CONFIGURE HOSTNAME
 	class { 'hostname':
-		hostname => $::hostname,
-		domain   => $::domain,
-	} ->
+		hostname => $::ispconfig::hostname,
+		domain   => $::ispconfig::domain,
+	}
 
 /*
 	class { '::ntp':
