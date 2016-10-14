@@ -101,6 +101,7 @@ class ispconfig::install inherits ispconfig {
 	file_line { 'postfix_smtpd_sasl_auth_enable':
 		ensure => present,
 		path   => '/etc/postfix/master.cf',
+		multiple => true,
 		match  => '^#  -o smtpd_sasl_auth_enable=yes',
 		line   => '  -o smtpd_sasl_auth_enable=yes',
 	} ->
