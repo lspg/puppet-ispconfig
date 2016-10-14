@@ -1,4 +1,4 @@
-class ispconfig::source inherits ispconfig {
+class ispconfig::sources inherits ispconfig {
 	class { 'apt':
 		purge => {
 			'sources.list' => true,
