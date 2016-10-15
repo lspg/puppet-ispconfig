@@ -56,5 +56,5 @@ class ispconfig::mysql inherits ispconfig {
 	exec { 'mysql-restart':
 		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 		command => "service mysql restart",
-	} ->
+	}
 }
