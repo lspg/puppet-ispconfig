@@ -11,7 +11,7 @@ class ispconfig::sources inherits ispconfig {
 
 	# Non free repo required for apache mod_fastcgi
 	apt::source { "jessie":
-		location => 'http://ftp.fr.debian.org/debian/',
+		location => 'http://httpredir.debian.org/debian',
 		release  => "jessie",
 		repos    => 'main contrib non-free',
 		include  => {
@@ -52,7 +52,7 @@ class ispconfig::sources inherits ispconfig {
 
 	# Testing repository to get last Apache version
 	apt::source { "testing":
-		location => 'http://ftp.fr.debian.org/debian',
+		location => 'http://httpredir.debian.org/debian',
 		release  => 'testing',
 		repos    => 'main contrib non-free',
 		include  => {
