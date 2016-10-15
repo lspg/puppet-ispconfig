@@ -3,9 +3,9 @@ class ispconfig (
 	$domain     = $ispconfig::params::domain,
 	$admin_mail = $ispconfig::params::admin_mail,
 ) inherits ispconfig::params  {
-	info('-------------------------------------------------')
-	info('--- Starting ISPConfig automated installation ---')
-	info('-------------------------------------------------')
+	notice('-------------------------------------------------')
+	notice('--- Starting ISPConfig automated installation ---')
+	notice('-------------------------------------------------')
 	anchor { 'ispconfig::begin': } ->
 		class { '::ispconfig::sources': } ->
 

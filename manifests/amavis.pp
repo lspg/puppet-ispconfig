@@ -1,7 +1,7 @@
 class ispconfig::amavis inherits ispconfig {
-	info('---------------------------------------------')
-	info('--- Amavisd-new, SpamAssassin, And Clamav ---')
-	info('---------------------------------------------')
+	notice('---------------------------------------------')
+	notice('--- Amavisd-new, SpamAssassin, And Clamav ---')
+	notice('---------------------------------------------')
 
 	ensure_packages([
 		'amavisd-new',

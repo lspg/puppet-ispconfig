@@ -1,7 +1,7 @@
 class ispconfig::postfix inherits ispconfig {
-	info('--------------------------------------')
-	info('--- Installing Postfix and Dovecot ---')
-	info('--------------------------------------')
+	notice('--------------------------------------')
+	notice('--- Installing Postfix and Dovecot ---')
+	notice('--------------------------------------')
 
 	# POSTFIX, DOVECOT
 	package { 'postfix':
