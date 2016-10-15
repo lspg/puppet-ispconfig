@@ -46,7 +46,7 @@ class ispconfig::amavis inherits ispconfig {
 	if ! defined(Package['bzip2']) {
 		package { 'bzip2':
 			ensure => 'installed',
-			require => Exec['apt_upgrade'],
+			require => [ Exec['apt_upgrade'], Package['unzip'] ],
 		}
 	}
 
