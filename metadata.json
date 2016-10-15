@@ -8,10 +8,10 @@
 	"project_page": "https://github.com/lspg/puppet-ispconfig",
 	"issues_url": "https://github.com/lspg/puppet-ispconfig/issues",
 	"dependencies": [
-		{"name":"puppetlabs/apt","version_requirement":">= 2.2.2"},
-		{"name":"puppetlabs/ntp","version_requirement":">= 4.1.2"},
-		{"name":"puppetlabs/git","version_requirement":">= 0.4.0"},
-		{"name":"puppetlabs/mysql","version_requirement":"3.6.2"},
-		{"name":"puppetlabs/apache","version_requirement":">=1.9.0"}
+		{"name":"puppetlabs/apt","version_requirement":">= 2.3.0"},
+		{"name":"puppetlabs/ntp","version_requirement":">= 4.2.0"},
+		{"name":"puppetlabs/git","version_requirement":">= 0.5.0"},
+		{"name":"puppetlabs/mysql","version_requirement":">=3.9.0"},
+		{"name":"puppetlabs/apache","version_requirement":">=1.10.0"}
 	]
 }
