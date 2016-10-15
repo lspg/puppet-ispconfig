@@ -2,10 +2,15 @@ class ispconfig::install inherits ispconfig {
 	info('--- Starting ISPConfig automated installation ---')
 
 	# SSH
-	ensure_packages(['ssh','openssh-server'], {
-		'ensure' => 'present',
-		'require' => Exec['apt_upgrade'],
-	}) ->
+	package { 'ssh':
+		ensure => 'installed',
+		require => Exec['apt_upgrade'],
+	} ->
+
+	package { 'openssh-server':
+		ensure => 'installed',
+		require => Exec['apt_upgrade'],
+	} ->
 
 	# SHELL TEXT EDITOR
 	package { 'nano':
@@ -31,10 +36,55 @@ class ispconfig::install inherits ispconfig {
 	} ->
 
 	# POSTFIX, DOVECOT
-	ensure_packages(['postfix','postfix-doc','postfix-mysql','getmail4','rkhunter','dovecot-imapd','dovecot-lmtpd','dovecot-mysql','dovecot-pop3d','dovecot-sieve'], {
-		'ensure' => 'present',
-		'require' => Exec['apt_upgrade'],
-	}) ->
+	package { 'postfix':
+		ensure => 'installed',
+		require => Exec['apt_upgrade'],
+	} ->
+
+	package { 'postfix-mysql':
+		ensure => 'installed',
+		require => Exec['apt_upgrade'],
+	} ->
+
+	package { 'postfix-doc':
+		ensure => 'installed',
+		require => Exec['apt_upgrade'],
+	} ->
+
+	package { 'getmail4':
+		ensure => 'installed',
+		require => Exec['apt_upgrade'],
+	} ->
+
+	package { 'rkhunter':
+		ensure => 'installed',
+		require => Exec['apt_upgrade'],
+	} ->
+
+	package { 'dovecot-imapd':
+		ensure => 'installed',
+		require => Exec['apt_upgrade'],
+	} ->
+
+	package { 'dovecot-pop3d':
+		ensure => 'installed',
+		require => Exec['apt_upgrade'],
+	} ->
+
+	package { 'dovecot-mysql':
+		ensure => 'installed',
+		require => Exec['apt_upgrade'],
+	} ->
+
+	package { 'dovecot-sieve':
+		ensure => 'installed',
+		require => Exec['apt_upgrade'],
+	} ->
+
+	package { 'dovecot-lmtpd':
+		ensure => 'installed',
+		require => Exec['apt_upgrade'],
+	} ->
 
 	file_line { 'postfix_submission_inet':
 		ensure => present,
@@ -219,10 +269,12 @@ class ispconfig::install inherits ispconfig {
 		require => Exec['apt_upgrade'],
 	} ->
 
-	ensure_packages(['bzip2'], {
-		'ensure' => 'present',
-		'require' => Exec['apt_upgrade'],
-	}) ->
+	if ! defined(Package['bzip2']) {
+		package { 'bzip2':
+			ensure => 'installed',
+			require => Exec['apt_upgrade'],
+		} ->
+	}
 
 	package { 'arj':
 		ensure => 'installed',
