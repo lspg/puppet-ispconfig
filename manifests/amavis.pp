@@ -3,12 +3,34 @@ class ispconfig::amavis inherits ispconfig {
 	info('--- Amavisd-new, SpamAssassin, And Clamav ---')
 	info('---------------------------------------------')
 
-	/*ensure_packages(['amavisd-new','spamassassin','clamav','clamav-daemon','clamav-docs','zoo','unzip','bzip2','arj','nomarch','lzop','cabextract','apt-listchanges','libnet-ldap-perl','libauthen-sasl-perl','daemon','libio-string-perl','libio-socket-ssl-perl','libnet-ident-perl','zip','libnet-dns-perl ','postgrey'], {
+	ensure_packages([
+		'amavisd-new',
+		'apt-listchanges',
+		'arj',
+		'bzip2',
+		'cabextract',
+		'clamav',
+		'clamav-daemon',
+		'clamav-docs',
+		'daemon',
+		'libauthen-sasl-perl',
+		'libnet-ldap-perl',
+		'libnet-dns-perl',
+		'libio-string-perl',
+		'libio-socket-ssl-perl',
+		'libnet-ident-perl',
+		'lzop',
+		'nomarch',
+		'postgrey'
+		'spamassassin',
+		'unzip',
+		'zip',
+		'zoo',
+	], {
 		'ensure' => 'installed',
-		'require' => Exec['apt_upgrade'],
-	})*/
+	})
 
-	package { 'amavisd-new':
+/*	package { 'amavisd-new':
 		ensure => 'installed',
 		require => Exec['apt_upgrade'],
 	}
@@ -118,7 +140,7 @@ class ispconfig::amavis inherits ispconfig {
 	package { 'postgrey':
 		ensure => 'installed',
 		require => Exec['apt_upgrade'],
-	}
+	}*/
 
 	exec { 'spamassassin-disable':
 		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
