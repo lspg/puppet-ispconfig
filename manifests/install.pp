@@ -1,4 +1,6 @@
 class ispconfig::install inherits ispconfig {
+	info('Starting ISPConfig automated installation') ->
+
 	# SSH
 	package { 'ssh':
 		ensure => 'installed',
@@ -169,8 +171,11 @@ class ispconfig::install inherits ispconfig {
 		require => Exec['apt_upgrade'],
 	} ->
 
-	# MySQL
-	warning('Installing MySQL') ->
+	# ------------- #
+	# --- MySQL --- #
+	# ------------- #
+
+	info('Installing MySQL') ->
 
 	class { '::mysql::server':
 		package_name  => 'mariadb-server',
@@ -227,7 +232,9 @@ class ispconfig::install inherits ispconfig {
 		command => "service mysql restart",
 	} ->
 
-	# --- Amavisd-new, SpamAssassin, And Clamav
+	# --------------------------------------------- #
+	# --- Amavisd-new, SpamAssassin, And Clamav --- #
+	# --------------------------------------------- #
 
 	package { 'amavisd-new':
 		ensure => 'installed',
