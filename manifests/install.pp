@@ -1,21 +1,11 @@
 class ispconfig::install inherits ispconfig {
 	info('--- Starting ISPConfig automated installation ---')
 
-	exec { 'title-1':
-		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
-		command => 'echo "Starting ISPConfig automated installation"',
-	} ->
-
 	# SSH
-	package { 'ssh':
-		ensure => 'installed',
-		require => Exec['apt_upgrade'],
-	} ->
-
-	package { 'openssh-server':
-		ensure => 'installed',
-		require => Exec['apt_upgrade'],
-	} ->
+	ensure_packages(['ssh','openssh-server'], {
+		'ensure' => 'present',
+		'require' => Exec['apt_upgrade'],
+	}) ->
 
 	# SHELL TEXT EDITOR
 	package { 'nano':
@@ -41,55 +31,10 @@ class ispconfig::install inherits ispconfig {
 	} ->
 
 	# POSTFIX, DOVECOT
-	package { 'postfix':
-		ensure => 'installed',
-		require => Exec['apt_upgrade'],
-	} ->
-
-	package { 'postfix-mysql':
-		ensure => 'installed',
-		require => Exec['apt_upgrade'],
-	} ->
-
-	package { 'postfix-doc':
-		ensure => 'installed',
-		require => Exec['apt_upgrade'],
-	} ->
-
-	package { 'getmail4':
-		ensure => 'installed',
-		require => Exec['apt_upgrade'],
-	} ->
-
-	package { 'rkhunter':
-		ensure => 'installed',
-		require => Exec['apt_upgrade'],
-	} ->
-
-	package { 'dovecot-imapd':
-		ensure => 'installed',
-		require => Exec['apt_upgrade'],
-	} ->
-
-	package { 'dovecot-pop3d':
-		ensure => 'installed',
-		require => Exec['apt_upgrade'],
-	} ->
-
-	package { 'dovecot-mysql':
-		ensure => 'installed',
-		require => Exec['apt_upgrade'],
-	} ->
-
-	package { 'dovecot-sieve':
-		ensure => 'installed',
-		require => Exec['apt_upgrade'],
-	} ->
-
-	package { 'dovecot-lmtpd':
-		ensure => 'installed',
-		require => Exec['apt_upgrade'],
-	} ->
+	ensure_packages(['postfix','postfix-doc','postfix-mysql','getmail4','rkhunter','dovecot-imapd','dovecot-lmtpd','dovecot-mysql','dovecot-pop3d','dovecot-sieve'], {
+		'ensure' => 'present',
+		'require' => Exec['apt_upgrade'],
+	}) ->
 
 	file_line { 'postfix_submission_inet':
 		ensure => present,
