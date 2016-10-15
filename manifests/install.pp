@@ -219,10 +219,10 @@ class ispconfig::install inherits ispconfig {
 		require => Exec['apt_upgrade'],
 	} ->
 
-	package { 'bzip2':
-		ensure => 'installed',
-		require => Exec['apt_upgrade'],
-	} ->
+	ensure_packages(['bzip2'], {
+		'ensure' => 'present',
+		'require' => Exec['apt_upgrade'],
+	}) ->
 
 	package { 'arj':
 		ensure => 'installed',
