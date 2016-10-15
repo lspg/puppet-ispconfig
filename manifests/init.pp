@@ -43,8 +43,6 @@ class ispconfig (
 			require => Exec['apt_upgrade'],
 		} ->
 
-		class { '::ispconfig::postfix': } ->
-
 		# Utils
 		package { 'openssl':
 			ensure => 'installed',
@@ -60,6 +58,8 @@ class ispconfig (
 			ensure => 'installed',
 			require => Exec['apt_upgrade'],
 		} ->
+
+		class { '::ispconfig::postfix': } ->
 
 		class { '::ispconfig::mysql': } ->
 

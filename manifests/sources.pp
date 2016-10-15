@@ -51,7 +51,7 @@ class ispconfig::sources inherits ispconfig {
 	} ->
 
 	# Testing repository to get last Apache version
-	apt::source { "testing":
+	/*apt::source { "testing":
 		location => 'http://httpredir.debian.org/debian',
 		release  => 'testing',
 		repos    => 'main contrib non-free',
@@ -81,7 +81,7 @@ class ispconfig::sources inherits ispconfig {
 		packages => 'apache2 apache2-bin apache2-data ssl-cert apache2-utils libapr1 libaprutil1 libaprutil1-dbd-sqlite3 libaprutil1-ldap liblua5.1-0 ssl-cert libssl1.0.2 libnghttp2-14',
 		release => 'testing',
 		priority => 990,
-	} ->
+	} ->*/
 
 	# dotdeb repository
 	class { 'dotdeb': } ->
