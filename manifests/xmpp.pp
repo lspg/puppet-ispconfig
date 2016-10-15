@@ -1,4 +1,4 @@
-class ispconfig::amavis inherits ispconfig {
+class ispconfig::xmpp inherits ispconfig {
 	info('------------------------------------')
 	info('--- Installing XMPP tchat server ---')
 	info('------------------------------------')

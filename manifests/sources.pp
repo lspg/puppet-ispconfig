@@ -1,5 +1,7 @@
 class ispconfig::sources inherits ispconfig {
+	info('-----------------------------------')
 	info('--- Setting-up apt repositories ---')
+	info('-----------------------------------')
 
 	class { 'apt':
 		purge => {
