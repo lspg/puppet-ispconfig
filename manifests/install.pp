@@ -1,5 +1,10 @@
 class ispconfig::install inherits ispconfig {
-	info('Starting ISPConfig automated installation') ->
+	info('--- Starting ISPConfig automated installation ---')
+
+	exec { 'title-1':
+		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
+		command => 'echo "Starting ISPConfig automated installation"',
+	} ->
 
 	# SSH
 	package { 'ssh':
@@ -28,7 +33,7 @@ class ispconfig::install inherits ispconfig {
 	exec { 'set-default-shell':
 		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 		command => 'echo "dash dash/sh boolean no" | debconf-set-selections && dpkg-reconfigure dash',
-	}
+	} ->
 
 	class { '::ntp':
 		package_ensure => installed,
@@ -175,8 +180,6 @@ class ispconfig::install inherits ispconfig {
 	# --- MySQL --- #
 	# ------------- #
 
-	info('Installing MySQL') ->
-
 	class { '::mysql::server':
 		package_name  => 'mariadb-server',
 		#remove_default_accounts => true,
@@ -256,6 +259,11 @@ class ispconfig::install inherits ispconfig {
 		require => Exec['apt_upgrade'],
 	} ->
 
+	package { 'clamav-docs':
+		ensure => 'installed',
+		require => Exec['apt_upgrade'],
+	} ->
+
 	package { 'zoo':
 		ensure => 'installed',
 		require => Exec['apt_upgrade'],
@@ -302,11 +310,6 @@ class ispconfig::install inherits ispconfig {
 	} ->
 
 	package { 'libauthen-sasl-perl':
-		ensure => 'installed',
-		require => Exec['apt_upgrade'],
-	} ->
-
-	package { 'clamav-docs':
 		ensure => 'installed',
 		require => Exec['apt_upgrade'],
 	} ->
