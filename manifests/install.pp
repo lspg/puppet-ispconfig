@@ -267,13 +267,13 @@ class ispconfig::install inherits ispconfig {
 	package { 'unzip':
 		ensure => 'installed',
 		require => Exec['apt_upgrade'],
-	} ->
+	}
 
 	if ! defined(Package['bzip2']) {
 		package { 'bzip2':
 			ensure => 'installed',
 			require => Exec['apt_upgrade'],
-		} ->
+		}
 	}
 
 	package { 'arj':
