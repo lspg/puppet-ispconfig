@@ -203,10 +203,10 @@ class ispconfig::install inherits ispconfig {
 		require => Exec['apt_upgrade'],
 	} ->
 
-	exec { 'mysql_root_access':
+	/*exec { 'mysql_root_access':
 		path => ['/usr/local/bin', '/usr/bin', '/bin', '/usr/local/sbin', '/usr/sbin', '/sbin'],
 		command => 'mysql -u root --password=root -h localhost -e "grant all privileges on *.* to \'root\'@\'localhost\' IDENTIFIED BY \'root\' with grant option;"',
-	} ->
+	} ->*/
 
 	file_line { 'mysql_disable_bind':
 		ensure => present,
@@ -215,11 +215,9 @@ class ispconfig::install inherits ispconfig {
 		line   => '#bind-address           = 127.0.0.1',
 	} ->
 
-	file_line { 'mysql_custom_conf':
-		ensure => present,
-		path   => '/etc/mysql/my.cnf',
-		match  => '^skip-external-locking',
-		line   => 'skip-external-locking\nskip-innodb\ndefault-storage-engine = myisam\nlong_query_time = 1\nlog-bin = \/var\/log\/mysql\/mysql-bin.log\nsync_binlog = 1',
+	exec { 'mysql_custom_conf':
+		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
+		command => 'sed -i "s/skip-external-locking/skip-external-locking\nskip-innodb\ndefault-storage-engine = myisam\nlong_query_time = 1\nlog-bin = \/var\/log\/mysql\/mysql-bin.log\nsync_binlog = 1/g" /etc/mysql/my.cnf',
 	} ->
 
 	exec { 'mysql-restart':
