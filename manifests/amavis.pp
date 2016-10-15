@@ -21,7 +21,7 @@ class ispconfig::amavis inherits ispconfig {
 		'libnet-ident-perl',
 		'lzop',
 		'nomarch',
-		'postgrey'
+		'postgrey',
 		'spamassassin',
 		'unzip',
 		'zip',
