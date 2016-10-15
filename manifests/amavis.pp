@@ -123,11 +123,6 @@ class ispconfig::amavis inherits ispconfig {
 	exec { 'spamassassin-disable':
 		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 		command => "service spamassassin stop && systemctl disable spamassassin",
-	}
-
-	exec { 'spamassassin-disable':
-		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
-		command => "service spamassassin stop && systemctl disable spamassassin",
 		require => Package['spamassassin'],
 	}
 }
