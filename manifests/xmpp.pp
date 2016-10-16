@@ -22,4 +22,25 @@ class ispconfig::xmpp inherits ispconfig {
 		command => "luarocks install lpc && adduser --no-create-home --disabled-login --gecos 'Metronome' metronome",
 		require => Package['luarocks'],
 	}
+
+	/*user { 'metronome':
+		ensure => present,
+		home => false,
+		managehome => false,
+		shell => '/bin/false',
+		comment => 'Metronome',
+	}*/
+
+	vcsrepo { '/opt/metronome':
+		ensure   => present,
+		provider => git,
+		source   => 'https://github.com/maranda/metronome.git',
+	} ->
+
+	exec { 'metronome-config':
+		cwd     => '/opt/metronome',
+		path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
+		command => './configure --ostype=debian --prefix=/usr',
+		require => VcsRepo['/opt/metronome'],
+	}
 }
