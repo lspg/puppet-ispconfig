@@ -1,8 +1,4 @@
 class ispconfig::xmpp inherits ispconfig {
-	notice('------------------------------------')
-	notice('--- Installing XMPP tchat server ---')
-	notice('------------------------------------')
-
 	ensure_packages([
 		'git',
 		'libidn11-dev',

@@ -1,8 +1,4 @@
 class ispconfig::mysql inherits ispconfig {
-	info('------------------------')
-	info('--- Installing MySQL ---')
-	info('------------------------')
-
 	class { '::mysql::server':
 		package_name  => 'mariadb-server',
 		#remove_default_accounts => true,

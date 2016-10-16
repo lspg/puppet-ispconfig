@@ -1,8 +1,4 @@
 class ispconfig::amavis inherits ispconfig {
-	notice('---------------------------------------------')
-	notice('--- Amavisd-new, SpamAssassin, And Clamav ---')
-	notice('---------------------------------------------')
-
 	ensure_packages([
 		'amavisd-new',
 		'apt-listchanges',
