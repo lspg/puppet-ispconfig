@@ -23,7 +23,7 @@ class ispconfig::xmpp inherits ispconfig {
 	
 	exec { 'xmpp-install':
 		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
-		command => "luarock install lpc && adduser --no-create-home --disabled-login --gecos 'Metronome' metronome",
+		command => "luarocks install lpc && adduser --no-create-home --disabled-login --gecos 'Metronome' metronome",
 		require => Package['luarocks'],
 	}
 }
