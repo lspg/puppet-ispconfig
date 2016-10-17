@@ -1,10 +1,18 @@
 class ispconfig::mysql inherits ispconfig {
+	file { '/root/pass.txt':
+		content => $mysql_root_pwd,
+	} ->
+
+	file { '/root/pass2.txt':
+		content => $::ispconfig::mysql::root_pwd,
+	} ->
+
 	class { '::mysql::server':
 		package_name  => 'mariadb-server',
 		#remove_default_accounts => true,
 		create_root_user => true,
 		create_root_my_cnf => true,
-		root_password => ${mysql_root_pwd},
+		root_password => $mysql_root_pwd,
 		grants => {
 			'root@localhost/*.*' => {
 				ensure     => 'present',
