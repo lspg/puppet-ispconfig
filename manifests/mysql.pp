@@ -32,12 +32,12 @@ class ispconfig::mysql inherits ispconfig {
 		owner => 'root',
 		group => 'root',
 		mode => '0770',
-	} ->*/
+	} ->
 
 	class { '::mysql::server::backup':
 		backupdir => '/var/backup/mysql',
 		require => File['/var/backup'],
-	} ->
+	} ->*/
 
 	class { '::mysql::server::mysqltuner':
 		ensure => 'installed',
