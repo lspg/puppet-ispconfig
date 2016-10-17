@@ -86,7 +86,7 @@ class ispconfig::postfix inherits ispconfig {
 
 	exec { 'postfix-restart':
 		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
-		command => "service postfix restart",
+		command => "postfix reload",
 		require => Exec['enchanced-spam-protect'],
 	}
 }

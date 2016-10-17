@@ -7,7 +7,7 @@ class ispconfig (
 		class { '::ispconfig::sources': } ->
 		class { '::ispconfig::preliminary': } ->
 		class { '::ispconfig::postfix': } ->
-		#class { '::ispconfig::mysql': } ->
+		class { '::ispconfig::mysql': } ->
 		#class { '::ispconfig::php': } ->
 		#class { '::ispconfig::apache': } ->
 		#class { 'phpmyadmin': } ->
