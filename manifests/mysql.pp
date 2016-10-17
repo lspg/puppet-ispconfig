@@ -24,11 +24,11 @@ class ispconfig::mysql inherits ispconfig {
 				'sync_binlog' => 1,
 			},
 		},
+		require => Exec['apt_upgrade'],
 	} ->
 
 	class { '::mysql::server::backup':
 		backupdir => '/var/backup/mysql',
-		require => Exec['apt_upgrade'],
 	} ->
 
 	class { '::mysql::server::mysqltuner':
