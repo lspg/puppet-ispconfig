@@ -32,7 +32,7 @@ class ispconfig::sources inherits ispconfig {
 	} ->
 
 	apt::source { 'jessie-backports':
-		location => 'http://ftp2.fr.debian.org/debian',
+		location => 'http://ftp.fr.debian.org/debian',
 		release  => 'jessie-backports',
 		repos    => 'main contrib non-free',
 		include  => {
