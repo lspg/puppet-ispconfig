@@ -1,6 +1,7 @@
 class ispconfig::preliminary inherits ispconfig {
 	ensure_packages([
 		'binutils',
+		'bzip2',
 		'curl',
 		'git',
 		'nano',
