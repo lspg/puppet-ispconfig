@@ -16,7 +16,7 @@ class ispconfig::mysql inherits ispconfig {
 		},
 		override_options => {
 			'mysqld' => {
-				'bind-address' => '127.0.0.1',
+				'bind-address' => false,
 				'skip-innodb' => true,
 				'default-storage-engine' => 'myisam',
 				'long_query_time' => '1',
