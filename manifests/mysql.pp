@@ -40,7 +40,7 @@ class ispconfig::mysql inherits ispconfig {
 	} ->
 
 	file { '/tmp/mysql_secure_installation.seeds':
-		content => template('preseed/mysql_secure_installation.erb'),
+		content => template('ispconfig/preseed/mysql_secure_installation.erb'),
 		ensure => present,
 	} ->
 
