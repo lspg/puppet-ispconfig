@@ -23,7 +23,7 @@ class ispconfig::mysql inherits ispconfig {
 				'log-bin' => '/var/log/mysql/mysql-bin.log',
 				'sync_binlog' => 1,
 			},
-		}
+		},
 	} ->
 
 	class { '::mysql::server::backup':
@@ -37,7 +37,7 @@ class ispconfig::mysql inherits ispconfig {
 
 	class { '::mysql::client':
 		package_name => 'mariadb-client',
-	} ->
+	}
 
 	/*exec { 'mysql_root_access':
 		path => ['/usr/local/bin', '/usr/bin', '/bin', '/usr/local/sbin', '/usr/sbin', '/sbin'],
