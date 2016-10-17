@@ -110,20 +110,20 @@ class ispconfig::sources inherits ispconfig {
 	package { 'apt-transport-https':
 		ensure => 'installed',
 		install_options => '-y',
-		require => Exec['apt_upgrade'],
+		require => Exec['apt_update'],
 	} ->
 
 	# debian-keyring
 	package { 'debian-keyring':
 		ensure => 'installed',
 		install_options => '-y',
-		require => Exec['apt_upgrade'],
+		require => Exec['apt_update'],
 	} ->
 
 	# debian-archive-keyring
 	package { 'debian-archive-keyring':
 		ensure => 'installed',
 		install_options => '-y',
-		require => Exec['apt_upgrade'],
+		require => Exec['apt_update'],
 	}
 }

@@ -1,12 +1,4 @@
 class ispconfig::mysql inherits ispconfig {
-	file { '/root/pass.txt':
-		content => $mysql_root_pwd,
-	} ->
-
-	file { '/root/pass2.txt':
-		content => $::ispconfig::mysql::root_pwd,
-	} ->
-
 	class { '::mysql::server':
 		package_name  => 'mariadb-server',
 		#remove_default_accounts => true,
@@ -27,9 +19,9 @@ class ispconfig::mysql inherits ispconfig {
 				'bind-address' => '127.0.0.1',
 				'skip-innodb' => true,
 				'default-storage-engine' => 'myisam',
-				'long_query_time' => 1,
+				'long_query_time' => '1',
 				'log-bin' => '/var/log/mysql/mysql-bin.log',
-				'sync_binlog' => 1,
+				'sync_binlog' => '1',
 			},
 		},
 		require => Exec['apt_update'],
@@ -45,32 +37,16 @@ class ispconfig::mysql inherits ispconfig {
 
 	class { '::mysql::client':
 		package_name => 'mariadb-client',
-	}
+	} ->
 
-	/*exec { 'mysql_secure_installation':
-		path => ['/usr/local/bin', '/usr/bin', '/bin', '/usr/local/sbin', '/usr/sbin', '/sbin'],
-		command => template("${module_,ame}/mysql_secure_installation.erb")
-	}*/
-
-	/*exec { 'mysql_root_access':
-		path => ['/usr/local/bin', '/usr/bin', '/bin', '/usr/local/sbin', '/usr/sbin', '/sbin'],
-		command => 'mysql -u root --password=root -h localhost -e "grant all privileges on *.* to \'root\'@\'localhost\' IDENTIFIED BY \'root\' with grant option;"',
-	} ->*/
-
-	/*file_line { 'mysql_disable_bind':
+	file { '/tmp/mysql_secure_installation.seeds':
+		content => template('preseed/mysql_secure_installation.erb'),
 		ensure => present,
-		path   => '/etc/mysql/my.cnf',
-		match  => '^bind-address           = 127.0.0.1',
-		line   => '#bind-address           = 127.0.0.1',
-	} ->*/
+	} ->
 
-	/*exec { 'mysql_custom_conf':
-		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
-		command => 'sed -i "s/skip-external-locking/skip-external-locking\nskip-innodb\ndefault-storage-engine = myisam\nlong_query_time = 1\nlog-bin = \/var\/log\/mysql\/mysql-bin.log\nsync_binlog = 1/g" /etc/mysql/my.cnf',
-	} ->*/
-
-	/*exec { 'mysql-restart':
-		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
-		command => "service mysql restart",
-	}*/
+	exec { 'mysql_secure_installation':
+		path => ['/usr/local/bin', '/usr/bin', '/bin', '/usr/local/sbin', '/usr/sbin', '/sbin'],
+		command => 'mysql_secure_installation < /tmp/mysql_secure_installation.seeds',
+		require => File['/tmp/mysql_secure_installation.seeds'],
+	}
 }

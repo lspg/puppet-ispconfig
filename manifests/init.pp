@@ -2,6 +2,7 @@ class ispconfig (
 	$hostname   = $ispconfig::params::hostname,
 	$domain     = $ispconfig::params::domain,
 	$admin_mail = $ispconfig::params::admin_mail,
+	$mysql_root_pwd = $ispconfig::params::mysql_root_pwd,
 ) inherits ispconfig::params  {
 	anchor { 'ispconfig::begin': } ->
 		class { '::ispconfig::sources': } ->
