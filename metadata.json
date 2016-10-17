@@ -2,7 +2,7 @@
 	"name": "ispconfig",
 	"version": "0.1.0",
 	"author": "Loïs PUIG",
-	"summary": "Debian 8 / ISPConfig 3 / Apache / MariaDB / PHP7",
+	"summary": "Debian 8.6 / ISPConfig 3.1 / Apache 2.4 / MariaDB / PHP 5.6 & 7",
 	"license": "MIT",
 	"source": "https://github.com/lspg/puppet-ispconfig",
 	"project_page": "https://github.com/lspg/puppet-ispconfig",

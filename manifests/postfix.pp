@@ -85,19 +85,6 @@ class ispconfig::postfix inherits ispconfig {
 
 	exec { 'postfix-stop':
 		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
-		command => "service postfix stop",
-	} ->
-
-	file { '/var/spool/postfix/pid/master.pid':
-		ensure => absent,
-	} ->
-
-	file { '/var/lib/postfix/master.lock':
-		ensure => absent,
-	} ->
-
-	exec { 'postfix-start':
-		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
-		command => "service postfix start",
+		command => "service postfix restart",
 	}
 }

@@ -4,7 +4,7 @@ class ispconfig::mysql inherits ispconfig {
 		#remove_default_accounts => true,
 		create_root_user => true,
 		create_root_my_cnf => true,
-		root_password => 'root',
+		root_password => $::ispconfig::mysql::root_pwd,
 		require => Exec['apt_upgrade'],
 		grants => {
 			'root@localhost/*.*' => {
@@ -14,7 +14,7 @@ class ispconfig::mysql inherits ispconfig {
 				table      => '*.*',
 				user       => 'root@localhost',
 			},
-		} 
+		}
 	} ->
 
 	class { '::mysql::server::backup':
