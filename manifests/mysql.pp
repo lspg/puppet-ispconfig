@@ -1,7 +1,7 @@
 class ispconfig::mysql inherits ispconfig {
 	class { '::mysql::server':
 		package_name  => 'mariadb-server',
-		remove_default_accounts => true,
+		#remove_default_accounts => true,
 		create_root_user => true,
 		create_root_my_cnf => true,
 		root_password => $::ispconfig::mysql::root_pwd,
@@ -37,6 +37,18 @@ class ispconfig::mysql inherits ispconfig {
 
 	class { '::mysql::client':
 		package_name => 'mariadb-client',
+	} ->
+
+	exec { 'mysql_secure_installation':
+		path => ['/usr/local/bin', '/usr/bin', '/bin', '/usr/local/sbin', '/usr/sbin', '/sbin'],
+		command => "mysql_secure_installation <<EOF
+$::ispconfig::mysql::root_pwd
+n
+y
+y
+y
+y
+EOF"
 	}
 
 	/*exec { 'mysql_root_access':
