@@ -27,9 +27,9 @@ class ispconfig::mysql inherits ispconfig {
 		require => Exec['apt_update'],
 	} ->
 
-	class { '::mysql::server::backup':
+	/*class { '::mysql::server::backup':
 		backupdir => '/var/backup/mysql',
-	} ->
+	} ->*/
 
 	class { '::mysql::server::mysqltuner':
 		ensure => 'installed',
