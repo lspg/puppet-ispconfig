@@ -1,4 +1,4 @@
-class ispconfig::postfix inherits ispconfig {
+class ispconfig::step8 inherits ispconfig {
 	ensure_packages([
 		'dovecot-imapd',
 		'dovecot-lmtpd',
