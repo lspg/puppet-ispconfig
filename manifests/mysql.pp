@@ -24,7 +24,7 @@ class ispconfig::mysql inherits ispconfig {
 				'sync_binlog' => 1,
 			},
 		},
-		require => Exec['apt_upgrade'],
+		require => Exec['apt_update'],
 	} ->
 
 	class { '::mysql::server::backup':

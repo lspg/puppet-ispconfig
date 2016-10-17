@@ -98,7 +98,7 @@ class ispconfig::sources inherits ispconfig {
 		priority => 500,
 	} ->
 
-#	Exec['apt_update'] ->
+	class { 'apt_update': } ->
 
 	exec { 'apt_upgrade':
 		command => 'apt-get update --fix-missing && apt-get -y --force-yes upgrade',
