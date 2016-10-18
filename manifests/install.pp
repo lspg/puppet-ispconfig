@@ -1,5 +1,9 @@
 class ispconfig::install inherits ispconfig {
-
+	# CONFIGURE HOSTNAME
+	class { 'hostname':
+		hostname => $hostname,
+		domain   => $domain,
+	}
 
 /*
 	# git
