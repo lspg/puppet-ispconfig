@@ -7,7 +7,7 @@ class ispconfig::sources inherits ispconfig {
 
 	# Non free repo required for apache mod_fastcgi
 	apt::source { "jessie":
-		location => 'http://ftp.fr.debian.org/debian',
+		location => $apt_source,
 		release  => "jessie",
 		repos    => 'main contrib non-free',
 		include  => {
@@ -32,7 +32,7 @@ class ispconfig::sources inherits ispconfig {
 	} ->
 
 	apt::source { 'jessie-backports':
-		location => 'http://ftp.fr.debian.org/debian',
+		location => $apt_source,
 		release  => 'jessie-backports',
 		repos    => 'main contrib non-free',
 		include  => {
