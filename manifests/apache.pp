@@ -61,7 +61,7 @@ class ispconfig::apache inherits ispconfig {
 	file { '/etc/php5/apache2/conf.d/uploadprogress.ini':
 		content => inline_template('extension=uploadprogress.so'),
 		ensure => present,
-		require => Packages['apache2','php5'],
+		require => [Class['apache'], Package['php5']],
 	} ->
 
 	file { '/etc/apache2/conf-available/httpoxy.conf':
