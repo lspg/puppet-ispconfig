@@ -7,6 +7,7 @@ class ispconfig::php inherits ispconfig {
 		'mcrypt',
 		'php-auth',
 		'php-pear',
+		'php-services-json',
 		'php5',
 		'php5-cgi',
 		'php5-cli',
@@ -30,7 +31,6 @@ class ispconfig::php inherits ispconfig {
 		'php5-xcache',
 		'php5-xmlrpc',
 		'php5-xsl',
-		'php-services-json',
 	], {
 		'ensure' => 'installed',
 	})
