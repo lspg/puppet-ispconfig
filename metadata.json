@@ -8,7 +8,7 @@
 	"project_page": "https://github.com/lspg/puppet-ispconfig",
 	"issues_url": "https://github.com/lspg/puppet-ispconfig/issues",
 	"dependencies": [
-		{"name":"puppetlabs/stdlib","version_requirement":">=4.6.0"},
+		{"name":"puppetlabs/stdlib","version_requirement":">=4.13.1"},
 		{"name":"puppetlabs/apt","version_requirement":">= 2.3.0"},
 		{"name":"puppetlabs/ntp","version_requirement":">= 4.2.0"},
 		{"name":"puppetlabs/vcsrepo","version_requirement":">= 1.4.0"},
