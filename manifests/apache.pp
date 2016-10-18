@@ -50,7 +50,7 @@ class ispconfig::apache inherits ispconfig {
 	class { 'apache::mod::geoip': }
 	class { 'apache::mod::expires': }
 	class { 'apache::mod::xsendfile': }
-	class { 'apache::mod::deflate': }
+	#class { 'apache::mod::deflate': }
 	class { 'apache::mod::pagespeed': }
 	#class { 'apache::mod::vhost_alias': }
 	#class { 'apache::mod::proxy': }
