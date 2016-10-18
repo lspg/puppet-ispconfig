@@ -17,9 +17,10 @@ class ispconfig (
 		class { '::ispconfig::spamantiv': } ->
 		class { '::ispconfig::xmpp': } ->
 		class { '::ispconfig::php': } ->
-		#class { '::ispconfig::apache': } ->
-		#class { 'phpmyadmin': } ->
-		#class { '::ispconfig::xmpp': } ->
+		class { '::ispconfig::apache': } ->
+		class { '::ispconfig::phpmyadmin': } ->
+		class { '::ispconfig::hhvm': } ->
+		class { '::ispconfig::letsencrypt': } ->
 		#class { 'redis': bind => $::ipaddress } ->
 
 		exec { 'apt_remove':

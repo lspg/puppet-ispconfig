@@ -1,9 +1,9 @@
 # MySQL application password for phpmyadmin:
-phpmyadmin	phpmyadmin/mysql/app-pass	password	pass
-phpmyadmin	phpmyadmin/password-confirm	password	pass
-phpmyadmin	phpmyadmin/setup-password	password	pass
-phpmyadmin	phpmyadmin/mysql/admin-pass	password	pass
-phpmyadmin	phpmyadmin/app-password-confirm	password	pass
+phpmyadmin	phpmyadmin/mysql/app-pass	password	<%= @mysql_root_pwd %>
+phpmyadmin	phpmyadmin/password-confirm	password	<%= @mysql_root_pwd %>
+phpmyadmin	phpmyadmin/setup-password	password	<%= @mysql_root_pwd %>
+phpmyadmin	phpmyadmin/mysql/admin-pass	password	<%= @mysql_root_pwd %>
+phpmyadmin	phpmyadmin/app-password-confirm	password	<%= @mysql_root_pwd %>
 phpmyadmin	phpmyadmin/reconfigure-webserver	multiselect	apache2
 
 # Configure database for phpmyadmin with dbconfig-common?
