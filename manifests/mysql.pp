@@ -1,4 +1,6 @@
 class ispconfig::mysql inherits ispconfig {
+	Exec['apt_update'] -> Package['bzip2']
+
 	class { '::mysql::server':
 		package_name  => 'mariadb-server',
 		create_root_user => true,
@@ -34,7 +36,6 @@ class ispconfig::mysql inherits ispconfig {
 
 	class { '::mysql::server::backup':
 		backupdir => '/var/backup/mysql',
-		require => Exec['apt_update'],
 	} ->
 
 	class { '::mysql::server::mysqltuner':
