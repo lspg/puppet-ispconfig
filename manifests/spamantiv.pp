@@ -3,7 +3,6 @@ class ispconfig::spamantiv inherits ispconfig {
 		'amavisd-new',
 		'apt-listchanges',
 		'arj',
-		'bzip2',
 		'cabextract',
 		'clamav',
 		'clamav-daemon',
@@ -26,9 +25,15 @@ class ispconfig::spamantiv inherits ispconfig {
 		'ensure' => 'installed',
 	})
 
+	if ! defined(Package['bzip2']) {
+		package { 'bzip2':
+			ensure => installed,
+		}
+	}
+
 	exec { 'spamassassin-disable':
 		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 		command => "service spamassassin stop && systemctl disable spamassassin",
-		require => Package['spamassassin'],
+		require => [Package['spamassassin'],Package['bzip2']]
 	}
 }
