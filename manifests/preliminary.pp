@@ -15,8 +15,8 @@ class ispconfig::preliminary inherits ispconfig {
 
 	# CONFIGURE HOSTNAME
 	class { 'hostname':
-		hostname => $::ispconfig::hostname,
-		domain   => $::ispconfig::domain,
+		hostname => $hostname,
+		domain   => $domain,
 	}
 
 	# CHANGE DEFAULT SHELL
