@@ -1,4 +1,6 @@
 class ispconfig::mysql inherits ispconfig {
+	Exec['apt_upgrade'] -> Package['bzip2']
+
 	class { '::mysql::server':
 		package_name  => 'mariadb-server',
 		create_root_user => true,
