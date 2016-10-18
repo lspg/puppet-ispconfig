@@ -1,4 +1,5 @@
 class ispconfig (
+	$apt_source = $ispconfig::params::apt_source,
 	$hostname   = $ispconfig::params::hostname,
 	$domain     = $ispconfig::params::domain,
 	$admin_mail = $ispconfig::params::admin_mail,
