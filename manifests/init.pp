@@ -15,7 +15,7 @@ class ispconfig (
 		class { '::ispconfig::mysql': } ->
 		class { '::ispconfig::postfix': } ->
 		class { '::ispconfig::spamantiv': } ->
-
+		class { '::ispconfig::xmpp': } ->
 		#class { '::ispconfig::php': } ->
 		#class { '::ispconfig::apache': } ->
 		#class { 'phpmyadmin': } ->
