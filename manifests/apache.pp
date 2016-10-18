@@ -58,7 +58,7 @@ class ispconfig::apache inherits ispconfig {
 	#class { 'apache::mod::proxy_fcgi': }*/
 	#apache::mod { 'http2': }
 
-	file { '/etc/php5/apache2/conf.d/uploadprogress.ini':
+	/*file { '/etc/php5/apache2/conf.d/uploadprogress.ini':
 		content => inline_template('extension=uploadprogress.so'),
 		ensure => present,
 		require => Packages['apache2','php5'],
@@ -86,5 +86,5 @@ class ispconfig::apache inherits ispconfig {
 		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 		command => "echo $(grep ${hostname} /etc/hosts | cut -f1) ${hostname}.{$domain} >> /etc/init.d/apache2 restart",
 		require => Exec['sed-mimetypes'],
-	}
+	}*/
 }
