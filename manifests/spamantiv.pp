@@ -1,4 +1,4 @@
-class ispconfig::amavis inherits ispconfig {
+class ispconfig::spamantiv inherits ispconfig {
 	ensure_packages([
 		'amavisd-new',
 		'apt-listchanges',
