@@ -31,9 +31,9 @@ class ispconfig::apache inherits ispconfig {
 		mpm_module => 'worker',
 		sendfile => 'Off',
 		require => Exec['apt_update'],
-	} ->
+	}
 
-	class { 'apache::mod::actions': }
+	/*class { 'apache::mod::actions': }
 	class { 'apache::mod::alias': }
 	class { 'apache::mod::dav_fs': }
 	class { 'apache::mod::dav auth_digest': }
@@ -55,8 +55,8 @@ class ispconfig::apache inherits ispconfig {
 	#class { 'apache::mod::vhost_alias': }
 	#class { 'apache::mod::proxy': }
 	#class { 'apache::mod::proxy_http': }
-	#class { 'apache::mod::proxy_fcgi': }
-	apache::mod { 'http2': }
+	#class { 'apache::mod::proxy_fcgi': }*/
+	#apache::mod { 'http2': }
 
 	file { '/etc/php5/apache2/conf.d/uploadprogress.ini':
 		content => inline_template('extension=uploadprogress.so'),
