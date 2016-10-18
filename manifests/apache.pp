@@ -33,11 +33,11 @@ class ispconfig::apache inherits ispconfig {
 		require => Exec['apt_update'],
 	}
 
+	apache::mod { 'auth_digest': }
 	class { 'apache::mod::actions': }
 	#class { 'apache::mod::alias': }
 	#class { 'apache::mod::dav_fs': }
 	#class { 'apache::mod::dav': }
-	class { 'apache::auth_digest': }
 	class { 'apache::mod::fastcgi': }
 	class { 'apache::mod::include': }
 	class { 'apache::mod::rewrite': }	
