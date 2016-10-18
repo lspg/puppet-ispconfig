@@ -1,13 +1,13 @@
 class ispconfig::apache inherits ispconfig {
 	ensure_packages([
-		'apache2',
-		'apache2.2-common',
-		'apache2-doc',
-		'apache2-mpm-prefork',
+		#'apache2',
+		#'apache2.2-common',
+		#'apache2-doc',
+		#'apache2-mpm-prefork',
 		'apache2-suexec',
 		'apache2-utils',
 		'imagemagick',
-		'libapache2-mod-fastcgi',
+		#'libapache2-mod-fastcgi',
 		'libapache2-mod-fcgid',
 		'libapache2-mod-php5',
 		'libapache2-mod-python',
@@ -20,18 +20,18 @@ class ispconfig::apache inherits ispconfig {
 		'ensure' => 'installed',
 	})
 
-	# apache
-	/*class { 'apache':
-		#apache_name => 'apache2/testing',
-		default_vhost => false,
-		default_ssl_vhost => false,
-		docroot => '/var/www',
-		error_documents => true,
-		purge_configs => true,
-		mpm_module => 'worker',
-		sendfile => 'Off',
-		require => Exec['apt_update'],
-	} ->*/
+		# apache
+		class { 'apache':
+			#apache_name => 'apache2/testing',
+			default_vhost => false,
+			default_ssl_vhost => false,
+			docroot => '/var/www',
+			error_documents => true,
+			purge_configs => true,
+			mpm_module => 'worker',
+			sendfile => 'Off',
+			require => Exec['apt_update'],
+		} ->
 
 	class { 'apache::mod::actions': }
 	class { 'apache::mod::alias': }
