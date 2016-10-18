@@ -1,7 +1,6 @@
 class ispconfig::mysql inherits ispconfig {
 	class { '::mysql::server':
 		package_name  => 'mariadb-server',
-		#remove_default_accounts => true,
 		create_root_user => true,
 		create_root_my_cnf => true,
 		root_password => $mysql_root_pwd,
@@ -16,7 +15,6 @@ class ispconfig::mysql inherits ispconfig {
 		},
 		override_options => {
 			'mysqld' => {
-				#'bind-address' => false,
 				'skip-innodb' => true,
 				'default-storage-engine' => 'myisam',
 				'long_query_time' => '1',
@@ -27,7 +25,7 @@ class ispconfig::mysql inherits ispconfig {
 		require => Exec['apt_update'],
 	} ->
 
-	/*file { '/var/backup':
+	file { '/var/backup':
 		ensure => directory,
 		owner => 'root',
 		group => 'root',
@@ -37,7 +35,7 @@ class ispconfig::mysql inherits ispconfig {
 	class { '::mysql::server::backup':
 		backupdir => '/var/backup/mysql',
 		require => File['/var/backup'],
-	} ->*/
+	} ->
 
 	class { '::mysql::server::mysqltuner':
 		ensure => 'installed',

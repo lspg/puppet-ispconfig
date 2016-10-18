@@ -1,7 +1,7 @@
 class ispconfig::phpmyadmin inherits ispconfig {
 	file { '/tmp/phpmyadmin.seeds':
 		content => template('preseed/phpmyadmin.seeds'),
-		ensure => present;
+		ensure => present,
 	}
 
 	package { 'phpmyadmin':
