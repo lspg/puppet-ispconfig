@@ -43,8 +43,7 @@ class ispconfig::apache inherits ispconfig {
 	class { 'apache::mod::rewrite': }	
 	class { 'apache::mod::ssl': }
 	class { 'apache::mod::suexec': }
-
-	class { 'apache::mod::security2': }
+	#class { 'apache::mod::security2': }
 	class { 'apache::mod::headers': }
 	class { 'apache::mod::cache': }
 	class { 'apache::mod::disk_cache': }
