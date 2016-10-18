@@ -14,12 +14,14 @@ class ispconfig (
 		class { '::ispconfig::preliminary': } ->
 		class { '::ispconfig::mysql': } ->
 		class { '::ispconfig::postfix': } ->
+		class { '::ispconfig::spamantiv': } ->
+
 		#class { '::ispconfig::php': } ->
 		#class { '::ispconfig::apache': } ->
 		#class { 'phpmyadmin': } ->
-		#class { '::ispconfig::amavis': } ->
 		#class { '::ispconfig::xmpp': } ->
 		#class { 'redis': bind => $::ipaddress } ->
+
 		exec { 'apt_remove':
 			command => 'apt-get -y autoremove',
 			path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
