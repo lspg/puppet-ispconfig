@@ -40,7 +40,7 @@ class ispconfig::xmpp inherits ispconfig {
 	exec { 'metronome-config':
 		cwd     => '/opt/metronome',
 		path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
-		command => './configure --ostype=debian --prefix=/usr',
+		command => '/opt/metronome/./configure --ostype=debian --prefix=/usr && make && make install',
 		require => VcsRepo['/opt/metronome'],
 	}
 }
