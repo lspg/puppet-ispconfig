@@ -84,7 +84,7 @@ class ispconfig::apache inherits ispconfig {
 
 	exec { 'apache2-restart':
 		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
-		command => "echo $(grep $(hostname) /etc/hosts | cut -f1) $FQDN >> /etc/init.d/apache2 restart",
+		command => "echo $(grep ${hostname} /etc/hosts | cut -f1) ${hostname}.{$domain} >> /etc/init.d/apache2 restart",
 		require => Exec['sed-mimetypes'],
 	}
 }

@@ -1,0 +1,31 @@
+# MySQL application password for phpmyadmin:
+phpmyadmin	phpmyadmin/mysql/app-pass	password	<%= @mysql_root_pwd %>
+phpmyadmin	phpmyadmin/password-confirm	password	<%= @mysql_root_pwd %>
+phpmyadmin	phpmyadmin/setup-password	password	<%= @mysql_root_pwd %>
+phpmyadmin	phpmyadmin/mysql/admin-pass	password	<%= @mysql_root_pwd %>
+phpmyadmin	phpmyadmin/app-password-confirm	password	<%= @mysql_root_pwd %>
+phpmyadmin	phpmyadmin/reconfigure-webserver	multiselect	apache2
+
+# Configure database for phpmyadmin with dbconfig-common?
+phpmyadmin	phpmyadmin/dbconfig-install	boolean	true
+
+# MySQL database name for phpmyadmin:
+phpmyadmin	phpmyadmin/db/dbname	string	phpmyadmin
+
+# Perform upgrade on database for phpmyadmin with dbconfig-common?
+phpmyadmin	phpmyadmin/dbconfig-upgrade	boolean	true
+
+# MySQL username for phpmyadmin:
+phpmyadmin	phpmyadmin/db/app-user	string	phpmyadmin
+
+# Host running the MySQL server for phpmyadmin:
+phpmyadmin	phpmyadmin/remote/newhost	string	localhost
+
+# Database type to be used by phpmyadmin:
+phpmyadmin	phpmyadmin/database-type	select	mysql
+
+# Connection method for MySQL database of phpmyadmin:
+phpmyadmin	phpmyadmin/mysql/method	select	unix socket
+
+# Host name of the MySQL database server for phpmyadmin:
+phpmyadmin	phpmyadmin/remote/host	select	localhost
