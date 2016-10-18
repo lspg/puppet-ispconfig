@@ -36,7 +36,7 @@ class ispconfig::apache inherits ispconfig {
 	class { 'apache::mod::actions': }
 	#class { 'apache::mod::alias': }
 	#class { 'apache::mod::dav_fs': }
-	class { 'apache::mod::dav': }
+	#class { 'apache::mod::dav': }
 	class { 'apache::auth_digest': }
 	class { 'apache::mod::fastcgi': }
 	class { 'apache::mod::include': }
@@ -52,7 +52,8 @@ class ispconfig::apache inherits ispconfig {
 	class { 'apache::mod::expires': }
 	class { 'apache::mod::xsendfile': }
 	class { 'apache::mod::pagespeed': }
-	#class { 'pagespeed': }
+	class { 'apache::mod::deflate': }
+	#class { 'apache::mod::pagespeed': }
 	#class { 'apache::mod::vhost_alias': }
 	#class { 'apache::mod::proxy': }
 	#class { 'apache::mod::proxy_http': }
