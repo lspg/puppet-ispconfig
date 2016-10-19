@@ -67,7 +67,7 @@ class ispconfig::apache inherits ispconfig {
 	file { '/etc/apache2/conf-available/httpoxy.conf':
 		source => 'puppet:///modules/ispconfig/etc/apache2/conf-available/httpoxy.conf',
 		ensure => present,
-		require => [ Package['apache2'], Class['apache::mod::headers'] ]
+		require => [Class['apache'], Class['apache::mod::headers']],
 	} ->
 
 	exec { 'a2enconf-httpoxy':
@@ -79,12 +79,12 @@ class ispconfig::apache inherits ispconfig {
 	exec { 'sed-mimetypes':
 		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 		command => "sed -i 's/application\/x-ruby/#application\/x-ruby/g' /etc/mime.types",
-		require => Package['apache2'],
+		require => Class['apache'],
 	} ->
 
 	exec { 'apache2-restart':
 		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 		command => "echo $(grep ${hostname} /etc/hosts | cut -f1) ${hostname}.{$domain} >> /etc/init.d/apache2 restart",
-		require => Exec['sed-mimetypes'],
+		require => [Class['apache'], Exec['sed-mimetypes']],
 	}
 }
