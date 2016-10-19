@@ -18,8 +18,10 @@ class ispconfig::hhvm inherits ispconfig {
 	apt::pin { 'hhvm':
 		release  => "jessie",
 		priority => 500,
-		notify   => Exec['apt_update']
+		#notify   => Exec['apt_update']
 	} ->
+
+	Exec['apt_update'] ->
 
 	#exec { 'hhvm_repo':
 	#	cwd => '/tmp',
