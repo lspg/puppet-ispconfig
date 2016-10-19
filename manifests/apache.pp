@@ -51,18 +51,20 @@ class ispconfig::apache inherits ispconfig {
 	class { 'apache::mod::expires': }
 	class { 'apache::mod::xsendfile': }
 	#class { 'apache::mod::deflate': }
-	class { 'apache::mod::pagespeed': }
+	class { 'pagespeed': }
 	#class { 'apache::mod::vhost_alias': }
 	#class { 'apache::mod::proxy': }
 	#class { 'apache::mod::proxy_http': }
 	#class { 'apache::mod::proxy_fcgi': }*/
-	apache::mod { 'http2': }
+	#apache::mod { 'http2': }
 
-	file { '/etc/php5/apache2/conf.d/uploadprogress.ini':
-		content => inline_template('extension=uploadprogress.so'),
-		ensure => present,
-		require => [Class['apache'], Package['php5']],
-	} ->
+	if defined(Package['php5']) {
+		file { '/etc/php5/apache2/conf.d/uploadprogress.ini':
+			content => inline_template('extension=uploadprogress.so'),
+			ensure => present,
+			require => [Class['apache'], Package['php5']],
+		}
+	}
 
 	file { '/etc/apache2/conf-available/httpoxy.conf':
 		source => 'puppet:///modules/ispconfig/etc/apache2/conf-available/httpoxy.conf',
@@ -80,11 +82,6 @@ class ispconfig::apache inherits ispconfig {
 		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 		command => "sed -i 's/application\/x-ruby/#application\/x-ruby/g' /etc/mime.types",
 		require => Class['apache'],
-	} ->
-
-	exec { 'apache2-restart':
-		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
-		command => "echo $(grep ${hostname} /etc/hosts | cut -f1) ${hostname}.{$domain} >> /etc/init.d/apache2 restart",
-		require => [Class['apache'], Exec['sed-mimetypes']],
+		notify  => Class['apache::service'],
 	}
 }

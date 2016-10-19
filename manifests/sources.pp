@@ -79,8 +79,24 @@ class ispconfig::sources inherits ispconfig {
 		priority => 990,
 	} ->*/
 
-	# dotdeb repository
+	# DotDeb repository
 	class { 'dotdeb': } ->
+
+	# HHVM
+	apt::source { "hhvm":
+		location => 'http://dl.hhvm.com/debian',
+		release  => "jessie",
+		repos    => 'main',
+		include  => {
+			'deb' => true,
+			'src' => true,
+		},
+	} ->
+
+	apt::pin { 'hhvm':
+		release => "jessie",
+		priority => 500,
+	} ->
 
 	# XMPP
 	/*apt::source { 'metronome':
