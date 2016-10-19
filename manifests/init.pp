@@ -19,7 +19,7 @@ class ispconfig (
 		class { '::ispconfig::php': } ->
 		class { '::ispconfig::apache': } ->
 		class { '::ispconfig::phpmyadmin': } ->
-		#class { '::ispconfig::hhvm': } ->
+		class { '::ispconfig::hhvm': } ->
 		#class { '::ispconfig::letsencrypt': } ->
 		#class { 'redis': bind => $::ipaddress } ->
 
