@@ -46,14 +46,14 @@ class ispconfig::mysql inherits ispconfig {
 		package_name => 'mariadb-client',
 	} ->
 
-	file { '/tmp/mysql_secure_installation.seeds':
+	file { '/tmp/mysql_secure_installation.preseed':
 		content => template('ispconfig/preseed/mysql_secure_installation.erb'),
 		ensure => present,
 	} ->
 
 	exec { 'mysql_secure_installation':
 		path => ['/usr/local/bin', '/usr/bin', '/bin', '/usr/local/sbin', '/usr/sbin', '/sbin'],
-		command => 'mysql_secure_installation < /tmp/mysql_secure_installation.seeds',
-		require => File['/tmp/mysql_secure_installation.seeds'],
+		command => 'mysql_secure_installation < /tmp/mysql_secure_installation.preseed',
+		require => File['/tmp/mysql_secure_installation.preseed'],
 	}
 }

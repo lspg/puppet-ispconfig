@@ -1,5 +1,4 @@
 class ispconfig::phpmyadmin inherits ispconfig {
-	
 	if defined(Package['php5']) {
 		file { '/tmp/phpmyadmin.preseed':
 			content => template('ispconfig/preseed/phpmyadmin.erb'),
