@@ -12,7 +12,7 @@ class ispconfig::phpmyadmin inherits ispconfig {
 			ensure       => installed,
 		}
 	}
-	else {
+	else if defined(Package['php7.0']) {
 		class { 'phpmyadmin': }
 	}
 }
