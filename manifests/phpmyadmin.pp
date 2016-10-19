@@ -6,7 +6,7 @@ class ispconfig::phpmyadmin inherits ispconfig {
 		} ->
 
 		package { 'phpmyadmin':
-			require      => [ File['/tmp/phpmyadmin.seed'], Package['apache2','php5','mariadb-server'] ],
+			require      => [ File['/tmp/phpmyadmin.preseed'], Package['apache2','php5','mariadb-server'] ],
 			responsefile => "/tmp/phpmyadmin.preseed",
 			ensure       => installed,
 		}
