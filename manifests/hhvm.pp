@@ -1,26 +1,4 @@
 class ispconfig::hhvm inherits ispconfig {
-	# HHVM
-	apt::key { 'hhvm':
-		id      => '36AEF64D0207E7EEE352D4875A16E7281BE7A449',
-		server  => 'hkp://keyserver.ubuntu.com:80',
-	} ->
-
-	apt::source { "hhvm":
-		location => 'http://dl.hhvm.com/debian',
-		release  => "jessie",
-		repos    => 'main',
-		include  => {
-			'deb' => true,
-			'src' => false,
-		},
-	} ->
-
-	apt::pin { 'hhvm':
-		release  => "jessie",
-		priority => 500,
-		notify   => Exec['apt_update']
-	} ->
-
 	#Exec['apt_update'] ->
 
 	#exec { 'hhvm_repo':
@@ -32,6 +10,6 @@ class ispconfig::hhvm inherits ispconfig {
 
 	package { 'hhvm':
 		ensure => installed,
-		require => Apt::Pin['hhvm'],
+		require => [Apt::Pin['hhvm'], Exec['apt_update']],
 	}
 }
