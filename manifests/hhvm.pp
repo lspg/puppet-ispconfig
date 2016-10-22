@@ -1,7 +1,7 @@
 class ispconfig::hhvm inherits ispconfig {
 	# HHVM
 	apt::key { 'hhvm':
-		id      => '5a16e7281be7a449',
+		id      => '36AEF64D0207E7EEE352D4875A16E7281BE7A449',
 		server  => 'hkp://keyserver.ubuntu.com:80',
 	} ->
 
@@ -11,7 +11,7 @@ class ispconfig::hhvm inherits ispconfig {
 		repos    => 'main',
 		include  => {
 			'deb' => true,
-			'src' => true,
+			'src' => false,
 		},
 	} ->
 
