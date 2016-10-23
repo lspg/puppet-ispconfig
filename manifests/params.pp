@@ -4,4 +4,5 @@ class ispconfig::params {
 	$domain         = 'local'
 	$admin_mail		= "admin@${hostname}.${domain}"
 	$mysql_root_pwd = 'root'
+	$mailman_list_pwd = 'root'
 }

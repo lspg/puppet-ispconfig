@@ -4,6 +4,7 @@ class ispconfig (
 	$domain     = $ispconfig::params::domain,
 	$admin_mail = $ispconfig::params::admin_mail,
 	$mysql_root_pwd = $ispconfig::params::mysql_root_pwd,
+	$mailman_list_pwd = $ispconfig::params::mailman_list_pwd,
 ) inherits ispconfig::params  {
 	#notice($::trusted['certname'])
 	#notice($::virtual)
@@ -20,7 +21,8 @@ class ispconfig (
 		class { '::ispconfig::apache': } ->
 		class { '::ispconfig::phpmyadmin': } ->
 		class { '::ispconfig::hhvm': } ->
-		#class { '::ispconfig::letsencrypt': } ->
+		class { '::ispconfig::letsencrypt': } ->
+		class { '::ispconfig::mailman': } ->
 		#class { 'redis': bind => $::ipaddress } ->
 
 		exec { 'apt_remove':
