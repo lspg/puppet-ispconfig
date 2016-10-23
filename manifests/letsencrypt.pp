@@ -1,7 +1,7 @@
 class ispconfig::letsencrypt inherits ispconfig {
 	apt::pin { 'certbot':
 		packages => 'python-certbot-apache',
-		release => 'backports',
+		release => 'jessie-backports',
 		priority => 990,
 	} ->
 
