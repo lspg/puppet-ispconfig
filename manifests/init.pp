@@ -21,8 +21,8 @@ class ispconfig (
 		class { '::ispconfig::apache': } ->
 		class { '::ispconfig::phpmyadmin': } ->
 		class { '::ispconfig::hhvm': } ->
-		class { '::ispconfig::letsencrypt': } ->
-		class { '::ispconfig::mailman': } ->
+		#class { '::ispconfig::letsencrypt': } ->
+		#class { '::ispconfig::mailman': } ->
 		#class { 'redis': bind => $::ipaddress } ->
 
 		exec { 'apt_remove':
