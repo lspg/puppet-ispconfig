@@ -51,7 +51,7 @@ class ispconfig::ftp inherits ispconfig {
 			owner => 'root',
 			group => 'root',
 			mode => '0600',
-			notify => Service['pure-ftpd-mysql'],
+			#notify => Service['pure-ftpd-mysql'],
 		}
 	}
 
