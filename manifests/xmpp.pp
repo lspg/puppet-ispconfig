@@ -17,7 +17,7 @@ class ispconfig::xmpp inherits ispconfig {
 	})
 
 	if ! defined(Package['git']) {
-		package { 'bzip2':
+		package { 'git':
 			ensure => latest,
 			require => Exec['apt_update'],
 		}
