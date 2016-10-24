@@ -25,6 +25,7 @@ class ispconfig (
 		class { '::ispconfig::mailman::install': } ->
 		#class { 'redis': bind => $::ipaddress } ->
 
+		class { '::ispconfig::ssl': } ->
 		class { '::ispconfig::ftp': } ->
 
 		exec { 'apt_remove':

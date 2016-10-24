@@ -14,12 +14,22 @@ class ispconfig::ftp inherits ispconfig {
 		require => Package['pure-ftpd-common'],
 	}
 
-	file { '/etc/pure-ftpd/conf/TLS':
-		ensure => file,
-		content => '1',
-	} ->
+	if defined(Package['openssl']) {
+		file { '/etc/pure-ftpd/conf/TLS':
+			ensure => file,
+			content => '1',
+			require => Packages['pure-ftpd-common','openssl'],
+		}
 
-	class { '::ispconfig::ssl': } ->
+		file { '/etc/ssl/private/pure-ftpd.pem':
+			ensure => present,
+			owner => 'root',
+			group => 'root',
+			mode => '0600',
+			require => File['/etc/pure-ftpd/conf/TLS'],
+			notify => Service['pure-ftpd-mysql'],
+		}
+	}
 
 	if str2bool("$is_virtual") == false {
 		exec { 'quota-fstab':
