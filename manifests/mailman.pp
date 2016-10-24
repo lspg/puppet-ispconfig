@@ -29,5 +29,6 @@ class ispconfig::mailman::config inherits ispconfig {
 		path => ['/usr/local/bin', '/usr/bin', '/bin', '/usr/local/sbin', '/usr/sbin', '/sbin'],
 		command => 'newaliases',
 		require => File['/tmp/newlist_mailman.preseed'],
+		notify => Service['postfix'],
 	}
 }
