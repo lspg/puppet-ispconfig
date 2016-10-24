@@ -18,7 +18,6 @@ class ispconfig::spamantiv inherits ispconfig {
 		'nomarch',
 		'postgrey',
 		'spamassassin',
-		'unzip',
 		'zip',
 		'zoo',
 	], {
@@ -28,6 +27,13 @@ class ispconfig::spamantiv inherits ispconfig {
 	if ! defined(Package['bzip2']) {
 		package { 'bzip2':
 			ensure => installed,
+		}
+	}
+
+	if ! defined(Package['unzip']) { 
+		package { 'unzip':
+			ensure => latest,
+			require => Exec['apt_update'],
 		}
 	}
 
