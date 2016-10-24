@@ -12,8 +12,15 @@ class ispconfig::jailkit inherits ispconfig {
 		'require' => Exec['apt_update'],
 	})
 
-	if ! defined(Package['binutils']) {
+	if ! defined(Package['binutils']) { 
 		package { 'binutils':
+			ensure => latest,
+			require => Exec['apt_update'],
+		}
+	}
+
+	if ! defined(Package['unzip']) { 
+		package { 'unzip':
 			ensure => latest,
 			require => Exec['apt_update'],
 		}
