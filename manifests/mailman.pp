@@ -1,9 +1,14 @@
 class ispconfig::mailman inherits ispconfig {
+}
+
+class ispconfig::mailman::install inherits ispconfig {
 	package { 'mailman':
 		responsefile => "/tmp/mailman.seeds",
 		ensure       => installed,
-	} ->
+	}
+}
 
+class ispconfig::mailman::config inherits ispconfig {
 	file { '/tmp/newlist_mailman.preseed':
 		content => template('ispconfig/preseed/newlist_mailman.erb'),
 		ensure => present,
