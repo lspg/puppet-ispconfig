@@ -4,7 +4,7 @@ class ispconfig::dns inherits ispconfig {
 		'dnsutils',
 	], {
 		'ensure' => 'installed',
-		'require' => 'Exec["apt_update"]',
+		'require' => Exec['apt_update'],
 	})
 
 	if str2bool("$is_virtual") {
