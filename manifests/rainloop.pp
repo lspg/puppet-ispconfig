@@ -22,5 +22,10 @@ class ispconfig::rainloop inherits ispconfig {
 		mode => '0750',
 		require => Class['apache'],
 		notify  => Class['apache::service'],
+	} ->
+
+	exec { 'rainloop-enable':
+		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
+		command => 'a2enconf rainloop',
 	}
 }
