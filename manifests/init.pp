@@ -26,11 +26,11 @@ class ispconfig (
 		#class { 'redis': bind => $::ipaddress } ->
 
 		class { '::ispconfig::ftp': } ->
-		class { '::ispconfig::dns': } ->
-		class { '::ispconfig::statlog': } ->
-		class { '::ispconfig::jailkit': } ->
-		class { '::ispconfig::security': } ->
-		class { '::ispconfig::rainloop': } ->
+		#class { '::ispconfig::dns': } ->
+		#class { '::ispconfig::statlog': } ->
+		#class { '::ispconfig::jailkit': } ->
+		#class { '::ispconfig::security': } ->
+		#class { '::ispconfig::rainloop': } ->
 
 		exec { 'apt_remove':
 			command => 'apt-get -y autoremove',
