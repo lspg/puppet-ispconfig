@@ -1,4 +1,4 @@
-class ispconfig::statlog inherits ispconfig {
+class ispconfig::jailkit inherits ispconfig {
 	ensure_packages([
 		'build-essential',
 		'autoconf',

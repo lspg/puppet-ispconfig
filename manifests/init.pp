@@ -26,6 +26,10 @@ class ispconfig (
 		#class { 'redis': bind => $::ipaddress } ->
 
 		class { '::ispconfig::ftp': } ->
+		class { '::ispconfig::dns': } ->
+		class { '::ispconfig::statlog': } ->
+		class { '::ispconfig::jailkit': } ->
+		class { '::ispconfig::security': } ->
 
 		exec { 'apt_remove':
 			command => 'apt-get -y autoremove',
