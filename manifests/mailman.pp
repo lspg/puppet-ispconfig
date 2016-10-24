@@ -10,7 +10,7 @@ class ispconfig::mailman::install inherits ispconfig {
 	file { '/etc/apache2/conf-enabled/mailman.conf':
 		ensure => link,
 		target => '/etc/mailman/apache.conf',
-		notify => Service['apache'],
+		notify => Class['apache::service'],
 	}
 }
 
