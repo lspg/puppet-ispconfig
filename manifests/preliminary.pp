@@ -14,10 +14,16 @@ class ispconfig::preliminary inherits ispconfig {
 		'require' => Exec['apt_update'],
 	})
 
+	package { 'binutils':
+		ensure => latest,
+		require => Exec['apt_update'],
+	}
+
 	# CONFIGURE HOSTNAME
 	class { 'hostname':
 		hostname => $hostname,
 		domain   => $domain,
+		require => Exec['apt_update'],
 	}
 
 	# CHANGE DEFAULT SHELL
@@ -28,7 +34,7 @@ class ispconfig::preliminary inherits ispconfig {
 
 	class { '::ntp':
 		package_ensure => installed,
-		require => Exec['apt_upgrade'],
+		require => Exec['apt_update'],
 	}
 
 	# locales
