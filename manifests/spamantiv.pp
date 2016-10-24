@@ -26,7 +26,8 @@ class ispconfig::spamantiv inherits ispconfig {
 
 	if ! defined(Package['bzip2']) {
 		package { 'bzip2':
-			ensure => installed,
+			ensure => latest,
+			require => Exec['apt_update'],
 		}
 	}
 
