@@ -7,7 +7,7 @@ class ispconfig::letsencrypt inherits ispconfig {
 
 	exec { 'certbot-install':
 		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
-		command => "apt-get install python-certbot-apache -t jessie-backports",
+		command => "apt-get -y -t jessie-backports install python-certbot-apache",
 		require => [Apt::Pin['jessie-backports'], Exec['apt_update']],
 	}
 }
