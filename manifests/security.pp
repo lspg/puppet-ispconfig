@@ -4,7 +4,7 @@ class ispconfig::security inherits ispconfig {
 		'ufw',
 	], {
 		'ensure' => 'installed',
-		'require' => Exec['apt_update'],
+		#'require' => Exec['apt_update'],
 	})
 
 	file_line {'postfix-sasl-ignoreregex':

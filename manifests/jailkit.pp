@@ -9,7 +9,7 @@ class ispconfig::jailkit inherits ispconfig {
 		'debhelper',
 	], {
 		'ensure' => 'installed',
-		'require' => Exec['apt_update'],
+		#'require' => Exec['apt_update'],
 	})
 
 	if ! defined(Package['binutils']) { 

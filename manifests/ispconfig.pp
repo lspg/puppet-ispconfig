@@ -10,4 +10,10 @@ class ispconfig::ispconfig inherits ispconfig {
 		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 		command => 'tar xfz ispconfig.tar.gz',
 	} ->
+
+	exec { 'ispconfig-install':
+		cwd => '/tmp',
+		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
+		command => 'cd ispconfig3-stable-3* && cd install && php -q install.php',
+	} ->
 }
