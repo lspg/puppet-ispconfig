@@ -35,5 +35,18 @@ class ispconfig::jailkit inherits ispconfig {
 		provider => dpkg,
 		ensure => latest,
 		source => '/tmp/jailkit-2.19.deb',
+	} ->
+
+	# Fix chrooted sftp : http://symka.blogspot.fr/2013/05/jailkit-ispconfig-ubuntu-1204-sftp.html
+	exec { 'chroot-sftp-fix':
+		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
+		command => "sed -i 's/^libraries = \/lib\/libnsl.so.1/libraries = \/lib\/libnsl.so.1, \/lib64\/libnsl.so.1, \/lib\/libnss*.so.2, \/lib64\/libnss*.so.2, \/lib64\/libnss*.so.2, \/lib\/x86_64-linux-gnu\/libnsl.so.1, \/lib\/x86_64-linux-gnu\/libnss*.so.2/g' /etc/jailkit/jk_init.ini",
+		require => File['/etc/apache2/conf-available/httpoxy.conf'],
+	} ->
+
+	exec { 'chroot-sftp-fix-2':
+		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
+		command => "sed -i 's/^libraries = \/lib\/libnss_dns.so.2/libraries = \/lib\/libnss_dns.so.2, \/lib64\/libnss_dns.so.2, \/lib\/x86_64-linux-gnu\/libnss_dns.so.2/g' /etc/jailkit/jk_init.ini",
+		require => File['/etc/apache2/conf-available/httpoxy.conf'],
 	}
 }
