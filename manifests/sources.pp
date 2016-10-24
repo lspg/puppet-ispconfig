@@ -79,6 +79,12 @@ class ispconfig::sources inherits ispconfig {
 		priority => 990,
 	} ->*/
 
+	apt::pin { 'certbot':
+		packages => 'python-certbot-apache',
+		release => 'jessie-backports',
+		priority => 990,
+	} ->
+
 	# DotDeb repository
 	class { 'dotdeb': } ->
 
