@@ -5,6 +5,12 @@ class ispconfig::mailman::install inherits ispconfig {
 	package { 'mailman':
 		responsefile => "/tmp/mailman.seeds",
 		ensure       => installed,
+	} ->
+
+	file { '/etc/apache2/conf-enabled/mailman.conf':
+		ensure => link,
+		target => '/etc/mailman/apache.conf',
+		notify => Service['apache'],
 	}
 }
 
@@ -30,5 +36,13 @@ class ispconfig::mailman::config inherits ispconfig {
 		command => 'newaliases',
 		require => File['/tmp/newlist_mailman.preseed'],
 		notify => Service['postfix'],
+	} ->
+
+	service { 'mailman':
+		enable      => true,
+		ensure      => running,
+		hasrestart 	=> false,
+		hasstatus 	=> false,
+		#require    => Class["config"],
 	}
 }

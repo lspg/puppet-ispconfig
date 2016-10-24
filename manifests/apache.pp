@@ -80,7 +80,7 @@ class ispconfig::apache inherits ispconfig {
 
 	exec { 'sed-mimetypes':
 		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
-		command => "sed -i 's/application\/x-ruby/#application\/x-ruby/g' /etc/mime.types",
+		command => 'sed -i "s/application\/x-ruby/#application\/x-ruby/g" /etc/mime.types',
 		require => Class['apache'],
 		notify  => Class['apache::service'],
 	}

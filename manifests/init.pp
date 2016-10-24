@@ -25,6 +25,8 @@ class ispconfig (
 		class { '::ispconfig::mailman::install': } ->
 		#class { 'redis': bind => $::ipaddress } ->
 
+		class { '::ispconfig::ftp': } ->
+
 		exec { 'apt_remove':
 			command => 'apt-get -y autoremove',
 			path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
