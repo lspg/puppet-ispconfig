@@ -52,6 +52,12 @@ class ispconfig::ftp inherits ispconfig {
 			group => 'root',
 			mode => '0600',
 			#notify => Service['pure-ftpd-mysql'],
+		} ->
+
+		exec { 'pure-ftpd-mysql-restart':
+			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
+			command => 'service pure-ftpd-mysql restart',
+			#require => [File['/tmp/openssl.preseed'], Package['openssl']]
 		}
 	}
 
