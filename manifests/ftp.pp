@@ -12,15 +12,21 @@ class ispconfig::ftp inherits ispconfig {
 		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 		command => 'sed -i "s/VIRTUALCHROOT=false/VIRTUALCHROOT=true/g" /etc/mime.types',
 		require => Package['pure-ftpd-common'],
+	} ->
+
+	exec { 'pure-ftpd-mysql':
+		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
+		command => 'service pure-ftpd-mysql restart',
+		require => Package['pure-ftpd-common'],
 	}
 
-	service { 'pure-ftpd-mysql':
+	/*service { 'pure-ftpd-mysql':
 		enable      => true,
 		ensure      => running,
 		hasrestart 	=> true,
 		hasstatus 	=> false,
 		require    => Package['pure-ftpd-mysql'],
-	}
+	}*/
 
 	if defined(Package['openssl']) {
 		file { '/etc/pure-ftpd/conf/TLS':
