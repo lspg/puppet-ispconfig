@@ -7,11 +7,17 @@ class ispconfig::jailkit inherits ispconfig {
 		'flex',
 		'bison',
 		'debhelper',
-		'binutils',
 	], {
 		'ensure' => 'installed',
 		'require' => Exec['apt_update'],
 	})
+
+	if ! defined(Package['binutils']) {
+		package { 'binutils':
+			ensure => latest,
+			require => Exec['apt_update'],
+		}
+	}
 
 	exec { 'jailkit-download':
 		path => ['/usr/local/bin', '/usr/bin', '/bin', '/usr/local/sbin', '/usr/sbin', '/sbin'],
