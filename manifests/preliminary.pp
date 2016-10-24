@@ -11,6 +11,7 @@ class ispconfig::preliminary inherits ispconfig {
 		'unzip',
 	], {
 		'ensure' => 'installed',
+		'require' => Exec['apt_update'],
 	})
 
 	# CONFIGURE HOSTNAME
