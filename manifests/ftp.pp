@@ -17,6 +17,7 @@ class ispconfig::ftp inherits ispconfig {
 		ensure_packages([
 			'dpkg-dev',
 			'debhelper',
+			'gawk',
 			'openbsd-inetd',
 		], {
 			'ensure' => 'installed',
@@ -42,7 +43,7 @@ class ispconfig::ftp inherits ispconfig {
 
 		# Build from source
 		exec { 'pureftp-build':
-			cwd => '/tmp/pure-ftpd-mysql/pure-ftpd*',
+			cwd => '/tmp/pure-ftpd-mysql/pure-ftpd-$::pure_ftpd_version',
 			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 			command => "sed -i '/^optflags=/ s/$/ --without-capabilities/g' ./debian/rules && dpkg-buildpackage -b -uc",
 			timeout => 0,
@@ -52,13 +53,13 @@ class ispconfig::ftp inherits ispconfig {
 		package { 'pure-ftpd-common':
 			provider => dpkg,
 			ensure => present,
-			source => '/tmp/pure-ftpd-mysql/pure-ftpd-common*.deb',
+			source => '/tmp/pure-ftpd-mysql/pure-ftpd-common-$::pure_ftpd_version.deb',
 		} ->
 
 		package { 'pure-ftpd-mysql':
 			provider => dpkg,
 			ensure => present,
-			source => '/tmp/pure-ftpd-mysql/pure-ftpd-mysql*.deb',
+			source => '/tmp/pure-ftpd-mysql/pure-ftpd-mysql-$::pure_ftpd_version.deb',
 		} ->
 
 		/*exec { 'pureftp-dpkg':
