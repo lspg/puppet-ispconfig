@@ -4,6 +4,12 @@ class ispconfig::test inherits ispconfig {
 		#require => Exec['apt_update'],
 	} ->
 
+	file { '/tmp/pure-ftpd-mysql':
+		ensure => directory,
+		owner => 'root',
+		group => 'root',
+	} ->
+
 	file { '/tmp/pure-ftpd-mysql/pure-ftpd-1.0.36':
 		ensure => directory,
 		owner => 'root',
