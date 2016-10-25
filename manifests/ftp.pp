@@ -1,5 +1,7 @@
 class ispconfig::ftp inherits ispconfig {
+	# Docker kernel doesn't have capabilities, so we have to recompile it from sources
 	if str2bool("$is_virtual") {
+		# Install package building helpers
 		ensure_packages([
 			'dpkg-dev',
 			'debhelper',
@@ -8,6 +10,7 @@ class ispconfig::ftp inherits ispconfig {
 			'ensure' => 'installed',
 		})
 
+		# Install dependancies
 		exec { 'pureftp-build-dep':
 			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 			command => 'apt-get -y build-dep pure-ftpd',
@@ -18,28 +21,45 @@ class ispconfig::ftp inherits ispconfig {
 			ensure => directory,
 		} ->
 
+		# Get source
 		exec { 'pureftp-get-source':
 			cwd => '/tmp/pure-ftpd-mysql',
 			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 			command => 'apt-get source pure-ftpd-mysql',
 		} ->
 
+		# Build from source
 		exec { 'pureftp-build':
 			cwd => '/tmp/pure-ftpd-mysql',
 			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 			command => "cd pure-ftpd-* && sed -i '/^optflags=/ s/$/ --without-capabilities/g' ./debian/rules && dpkg-buildpackage -b -uc",
 		} ->
 
-		exec { 'pureftp-dpkg':
-			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
-			command => "dpkg -i /tmp/pure-ftpd-mysql/pure-ftpd-common*.deb && dpkg -i /tmp/pure-ftpd-mysql/pure-ftpd-mysql*.deb",
+		# Install the new deb files
+		package { 'pure-ftpd-common':
+			source => dpkg,
+			ensure => present,
+			source => '/tmp/pure-ftpd-mysql/pure-ftpd-common*.deb',
 		} ->
 
+		package { 'pure-ftpd-mysql':
+			source => dpkg,
+			ensure => present,
+			source => '/tmp/pure-ftpd-mysql/pure-ftpd-mysql*.deb',
+		} ->
+
+		/*exec { 'pureftp-dpkg':
+			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
+			command => "dpkg -i /tmp/pure-ftpd-mysql/pure-ftpd-common*.deb && dpkg -i /tmp/pure-ftpd-mysql/pure-ftpd-mysql*.deb",
+		} ->*/
+
+		# Prevent pure-ftpd upgrading
 		exec { 'pureftp-apt-mark':
 			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 			command => "apt-mark hold pure-ftpd-common pure-ftpd-mysql",
 		} ->
 
+		# Setup ftpgroup and ftpuser
 		exec { 'pureftp-user':
 			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 			command => "groupadd ftpgroup && useradd -g ftpgroup -d /dev/null -s /etc ftpuser",

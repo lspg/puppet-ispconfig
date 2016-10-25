@@ -7,22 +7,22 @@ class ispconfig (
 	$mailman_list_pwd = $ispconfig::params::mailman_list_pwd,
 ) inherits ispconfig::params  {
 	#notice($::trusted['certname'])
-	#notice($::virtual)
+	notice($::virtual)
 	#notice($::osfamily)
 	#notice($::trusted)
 	anchor { 'ispconfig::begin': } ->
-		class { '::ispconfig::sources': } ->
-		class { '::ispconfig::preliminary': } ->
-		class { '::ispconfig::mysql': } ->
-		class { '::ispconfig::postfix': } ->
-		class { '::ispconfig::spamantiv': } ->
-		class { '::ispconfig::xmpp': } ->
-		class { '::ispconfig::php': } ->
-		class { '::ispconfig::apache': } ->
-		class { '::ispconfig::phpmyadmin': } ->
-		class { '::ispconfig::hhvm': } ->
-		class { '::ispconfig::letsencrypt': } ->
-		class { '::ispconfig::mailman::install': } ->
+		#class { '::ispconfig::sources': } ->
+		#class { '::ispconfig::preliminary': } ->
+		#class { '::ispconfig::mysql': } ->
+		#class { '::ispconfig::postfix': } ->
+		#class { '::ispconfig::spamantiv': } ->
+		#class { '::ispconfig::xmpp': } ->
+		#class { '::ispconfig::php': } ->
+		#class { '::ispconfig::apache': } ->
+		#class { '::ispconfig::phpmyadmin': } ->
+		#class { '::ispconfig::hhvm': } ->
+		#class { '::ispconfig::letsencrypt': } ->
+		#class { '::ispconfig::mailman::install': } ->
 		#class { 'redis': bind => $::ipaddress } ->
 
 		class { '::ispconfig::ftp': } ->

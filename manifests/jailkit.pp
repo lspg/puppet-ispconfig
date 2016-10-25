@@ -46,7 +46,7 @@ class ispconfig::jailkit inherits ispconfig {
 
 	package { 'jailkit':
 		provider => dpkg,
-		ensure => latest,
+		#ensure => latest,
 		source => '/tmp/jailkit-2.19.deb',
 	} ->
 
