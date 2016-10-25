@@ -15,12 +15,12 @@ class ispconfig (
 		#class { '::ispconfig::test': } ->
 		class { '::ispconfig::sources': } ->
 		class { '::ispconfig::preliminary': } ->
-		#class { '::ispconfig::mysql': } ->
+		class { '::ispconfig::mysql': } ->
 		#class { '::ispconfig::postfix': } ->
 		#class { '::ispconfig::spamantiv': } ->
 		#class { '::ispconfig::xmpp': } ->
-		#class { '::ispconfig::php': } ->
-		#class { '::ispconfig::apache': } ->
+		class { '::ispconfig::php': } ->
+		class { '::ispconfig::apache': } ->
 		#class { '::ispconfig::phpmyadmin': } ->
 		#class { '::ispconfig::hhvm': } ->
 		#class { '::ispconfig::letsencrypt': } ->
