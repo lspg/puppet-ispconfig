@@ -19,7 +19,7 @@ class ispconfig::ftp inherits ispconfig {
 		} ->
 
 		exec { 'pureftp-get-source':
-			cwd => '/tmp/pure-ftpd-mysql'
+			cwd => '/tmp/pure-ftpd-mysql',
 			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 			command => 'apt-get source pure-ftpd-mysql',
 		} ->
