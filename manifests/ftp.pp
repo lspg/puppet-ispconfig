@@ -1,8 +1,19 @@
 class ispconfig::ftp inherits ispconfig {
 	# Docker kernel doesn't have capabilities, so we have to recompile it from sources
 	if (str2bool("$is_virtual")) and ($virtual == 'docker') {
+		file { '/tmp/pureftpd.sh':
+			source => 'puppet:///modules/ispconfig/scripts/pureftpd.sh',
+			ensure => present,
+		} ->
+
+		# Install dependancies
+		exec { 'pureftp-build-script':
+			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
+			command => 'bash /tmp/pureftpd.sh',
+		}
+
 		# Install package building helpers
-		ensure_packages([
+		/*ensure_packages([
 			'dpkg-dev',
 			'debhelper',
 			'openbsd-inetd',
@@ -54,7 +65,7 @@ class ispconfig::ftp inherits ispconfig {
 		} ->*/
 
 		# Prevent pure-ftpd upgrading
-		exec { 'pureftp-apt-mark':
+		/*exec { 'pureftp-apt-mark':
 			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 			command => "apt-mark hold pure-ftpd-common pure-ftpd-mysql",
 		} ->
@@ -63,18 +74,23 @@ class ispconfig::ftp inherits ispconfig {
 		exec { 'pureftp-user':
 			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 			command => "groupadd ftpgroup && useradd -g ftpgroup -d /dev/null -s /etc ftpuser",
-		}
+		}*/
 	}
 	else {
 		ensure_packages([
 			'pure-ftpd-common',
 			'pure-ftpd-mysql',
-			'quota',
-			'quotatool',
 		], {
 			'ensure' => 'installed',
 		})
 	}
+
+	ensure_packages([
+		'quota',
+		'quotatool',
+	], {
+		'ensure' => 'installed',
+	})
 
 	exec { 'pureftp-virtualchroot':
 		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
