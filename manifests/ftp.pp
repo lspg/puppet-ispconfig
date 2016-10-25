@@ -1,7 +1,7 @@
 class ispconfig::ftp inherits ispconfig {
 	# Docker kernel doesn't have capabilities, so we have to recompile it from sources
 	if (str2bool("$is_virtual")) and ($virtual == 'docker') {
-		file { '/tmp/pureftpd.sh':
+		/*file { '/tmp/pureftpd.sh':
 			source => 'puppet:///modules/ispconfig/scripts/pureftpd.sh',
 			ensure => present,
 		} ->
@@ -10,10 +10,11 @@ class ispconfig::ftp inherits ispconfig {
 		exec { 'pureftp-build-script':
 			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 			command => 'bash /tmp/pureftpd.sh',
-		}
+			timeout => 0,
+		}*/
 
 		# Install package building helpers
-		/*ensure_packages([
+		ensure_packages([
 			'dpkg-dev',
 			'debhelper',
 			'openbsd-inetd',
@@ -41,22 +42,23 @@ class ispconfig::ftp inherits ispconfig {
 
 		# Build from source
 		exec { 'pureftp-build':
-			cwd => '/tmp/pure-ftpd-mysql/pure-ftpd-1.0.36',
+			cwd => '/tmp/pure-ftpd-mysql/pure-ftpd*',
 			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 			command => "sed -i '/^optflags=/ s/$/ --without-capabilities/g' ./debian/rules && dpkg-buildpackage -b -uc",
+			timeout => 0,
 		} ->
 
 		# Install the new deb files
 		package { 'pure-ftpd-common':
 			provider => dpkg,
 			ensure => present,
-			source => '/tmp/pure-ftpd-mysql/pure-ftpd-common_1.0.36-3.2_all.deb',
+			source => '/tmp/pure-ftpd-mysql/pure-ftpd-common*.deb',
 		} ->
 
 		package { 'pure-ftpd-mysql':
 			provider => dpkg,
 			ensure => present,
-			source => '/tmp/pure-ftpd-mysql/pure-ftpd-mysql_1.0.36-3.2_amd64.deb',
+			source => '/tmp/pure-ftpd-mysql/pure-ftpd-mysql*.deb',
 		} ->
 
 		/*exec { 'pureftp-dpkg':
@@ -65,7 +67,7 @@ class ispconfig::ftp inherits ispconfig {
 		} ->*/
 
 		# Prevent pure-ftpd upgrading
-		/*exec { 'pureftp-apt-mark':
+		exec { 'pureftp-apt-mark':
 			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 			command => "apt-mark hold pure-ftpd-common pure-ftpd-mysql",
 		} ->
