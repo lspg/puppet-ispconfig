@@ -1,6 +1,6 @@
 class ispconfig::ftp inherits ispconfig {
 	# Docker kernel doesn't have capabilities, so we have to recompile it from sources
-	if str2bool("$is_virtual") && $virtual == 'docker' {
+	if (str2bool("$is_virtual")) and ($virtual == 'docker') {
 		# Install package building helpers
 		ensure_packages([
 			'dpkg-dev',
