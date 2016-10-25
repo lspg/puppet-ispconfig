@@ -25,7 +25,7 @@ class ispconfig (
 		#class { '::ispconfig::mailman::install': } ->
 		#class { 'redis': bind => $::ipaddress } ->
 
-		class { '::ispconfig::ftp': } ->
+		#class { '::ispconfig::ftp': } ->
 		#class { '::ispconfig::dns': } ->
 		#class { '::ispconfig::statlog': } ->
 		#class { '::ispconfig::jailkit': } ->
