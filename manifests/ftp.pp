@@ -59,13 +59,13 @@ class ispconfig::ftp inherits ispconfig {
 	exec { 'pureftp-virtualchroot':
 		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 		command => 'sed -i "s/VIRTUALCHROOT=false/VIRTUALCHROOT=true/g" /etc/mime.types',
-		require => Package['pure-ftpd-common'],
+		#require => Package['pure-ftpd-common'],
 	} ->
 
 	exec { 'pure-ftpd-mysql':
 		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 		command => 'service pure-ftpd-mysql restart',
-		require => Package['pure-ftpd-common'],
+		#require => Package['pure-ftpd-common'],
 	}
 
 	/*service { 'pure-ftpd-mysql':
@@ -80,7 +80,7 @@ class ispconfig::ftp inherits ispconfig {
 		file { '/etc/pure-ftpd/conf/TLS':
 			ensure => file,
 			content => '1',
-			require => Package['pure-ftpd-mysql'],
+			#require => Package['pure-ftpd-mysql'],
 		} ->
 
 		file { '/etc/ssl/private/':
