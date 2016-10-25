@@ -1,6 +1,4 @@
 class ispconfig::test inherits ispconfig {
-
-	#$myversion = generate ("/bin/bash", "-c", "apt-cache madison pure-ftpd-mysql | grep pure-ftpd-mysql | awk '{print $3}'")
 	warning($::pure_ftpd_version)
 
 	package { 'gawk':
@@ -14,7 +12,7 @@ class ispconfig::test inherits ispconfig {
 		group => 'root',
 	} ->
 
-	file { '/tmp/pure-ftpd-mysql/$myversion':
+	file { '/tmp/pure-ftpd-mysql/$::pure_ftpd_version':
 		ensure => directory,
 		owner => 'root',
 		group => 'root',
