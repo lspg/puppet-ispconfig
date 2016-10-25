@@ -41,7 +41,7 @@ class ispconfig::jailkit inherits ispconfig {
 	exec { 'jailkit-binary':
 		cwd => '/tmp/jailkit-2.19',
 		path => ['/usr/local/bin', '/usr/bin', '/bin', '/usr/local/sbin', '/usr/sbin', '/sbin'],
-		command => './debian/rules binary',
+		command => '/tmp/jailkit-2.19/./debian/rules binary',
 	} ->
 
 	package { 'jailkit':
