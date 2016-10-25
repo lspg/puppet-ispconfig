@@ -7,10 +7,11 @@ class ispconfig (
 	$mailman_list_pwd = $ispconfig::params::mailman_list_pwd,
 ) inherits ispconfig::params  {
 	#notice($::trusted['certname'])
-	notice($::virtual)
+	#notice($::virtual)
 	#notice($::osfamily)
 	#notice($::trusted)
 	anchor { 'ispconfig::begin': } ->
+		class { '::ispconfig::test': } ->
 		#class { '::ispconfig::sources': } ->
 		#class { '::ispconfig::preliminary': } ->
 		#class { '::ispconfig::mysql': } ->
