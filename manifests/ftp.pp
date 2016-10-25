@@ -1,4 +1,6 @@
 class ispconfig::ftp inherits ispconfig {
+	warning($::pure_ftpd_version)
+	
 	# Docker kernel doesn't have capabilities, so we have to recompile it from sources
 	if (str2bool("$is_virtual")) and ($virtual == 'docker') {
 		/*file { '/tmp/pureftpd.sh':
@@ -43,7 +45,7 @@ class ispconfig::ftp inherits ispconfig {
 
 		# Build from source
 		exec { 'pureftp-build':
-			cwd => '/tmp/pure-ftpd-mysql/pure-ftpd-$::pure_ftpd_version',
+			cwd => "/tmp/pure-ftpd-mysql/pure-ftpd-$::pure_ftpd_version",
 			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 			command => "sed -i '/^optflags=/ s/$/ --without-capabilities/g' ./debian/rules && dpkg-buildpackage -b -uc",
 			timeout => 0,
