@@ -1,20 +1,8 @@
 class ispconfig::ftp inherits ispconfig {
 	warning($::pure_ftpd_version)
-	
+
 	# Docker kernel doesn't have capabilities, so we have to recompile it from sources
 	if (str2bool("$is_virtual")) and ($virtual == 'docker') {
-		/*file { '/tmp/pureftpd.sh':
-			source => 'puppet:///modules/ispconfig/scripts/pureftpd.sh',
-			ensure => present,
-		} ->
-
-		# Install dependancies
-		exec { 'pureftp-build-script':
-			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
-			command => 'bash /tmp/pureftpd.sh',
-			timeout => 0,
-		}*/
-
 		# Install package building helpers
 		ensure_packages([
 			'dpkg-dev',
@@ -25,8 +13,23 @@ class ispconfig::ftp inherits ispconfig {
 			'ensure' => 'installed',
 		})
 
+		file { '/tmp/pureftpd.sh':
+			source => 'puppet:///modules/ispconfig/scripts/pureftpd.sh',
+			ensure => present,
+			require => Package['dpkg-dev','debhelper','openbsd-inetd'],
+		} ->
+
 		# Install dependancies
-		exec { 'pureftp-build-dep':
+		exec { 'pureftp-build-script':
+			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
+			command => 'bash /tmp/pureftpd.sh',
+			timeout => 0,
+		}
+
+		
+
+		# Install dependancies
+		/*exec { 'pureftp-build-dep':
 			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 			command => 'apt-get -y build-dep pure-ftpd',
 			require => Package['dpkg-dev', 'debhelper', 'openbsd-inetd'],
@@ -74,7 +77,7 @@ class ispconfig::ftp inherits ispconfig {
 		exec { 'pureftp-user':
 			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 			command => "groupadd ftpgroup && useradd -g ftpgroup -d /dev/null -s /etc ftpuser",
-		}
+		}*/
 	}
 	else {
 		ensure_packages([
