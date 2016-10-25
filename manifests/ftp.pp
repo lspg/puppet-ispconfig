@@ -39,13 +39,13 @@ class ispconfig::ftp inherits ispconfig {
 		package { 'pure-ftpd-common':
 			provider => dpkg,
 			ensure => present,
-			source => '/tmp/pure-ftpd-mysql/pure-ftpd-common*.deb',
+			source => '/tmp/pure-ftpd-mysql/pure-ftpd-common_1.0.36-3.2_all.deb',
 		} ->
 
 		package { 'pure-ftpd-mysql':
 			provider => dpkg,
 			ensure => present,
-			source => '/tmp/pure-ftpd-mysql/pure-ftpd-mysql*.deb',
+			source => '/tmp/pure-ftpd-mysql/pure-ftpd-mysql_1.0.36-3.2_amd64.deb',
 		} ->
 
 		/*exec { 'pureftp-dpkg':
