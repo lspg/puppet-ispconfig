@@ -25,7 +25,7 @@ class ispconfig::ftp inherits ispconfig {
 		} ->
 
 		exec { 'pureftp-build':
-			cwd => '/tmp/pure-ftpd-mysql'
+			cwd => '/tmp/pure-ftpd-mysql',
 			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 			command => "cd pure-ftpd-* && sed -i '/^optflags=/ s/$/ --without-capabilities/g' ./debian/rules && dpkg-buildpackage -b -uc",
 		} ->
