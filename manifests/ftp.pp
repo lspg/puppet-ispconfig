@@ -37,7 +37,7 @@ class ispconfig::ftp inherits ispconfig {
 
 		# Install the new deb files
 		package { 'pure-ftpd-common':
-			source => dpkg,
+			provider => dpkg,
 			ensure => present,
 			source => '/tmp/pure-ftpd-mysql/pure-ftpd-common*.deb',
 		} ->
