@@ -1,4 +1,7 @@
 class ispconfig::test inherits ispconfig {
+	$myversion = generate ("/bin/bash", "-c", "apt-cache madison pure-ftpd-mysql | grep pure-ftpd-mysql | awk '{print $3}'")
+	warning($myversion)
+
 	package { 'gawk':
 		ensure => latest,
 		#require => Exec['apt_update'],
@@ -10,12 +13,12 @@ class ispconfig::test inherits ispconfig {
 		group => 'root',
 	} ->
 
-	file { '/tmp/pure-ftpd-mysql/pure-ftpd-1.0.36':
+	file { '/tmp/pure-ftpd-mysql/$myversion':
 		ensure => directory,
 		owner => 'root',
 		group => 'root',
 	}
-
-	$myversion = generate ("/bin/bash", "-c", "/bin/ls -l /tmp/pure-ftpd-mysql | grep pure-ftp | awk '{print $9}'")
-	warning($myversion)
+	
+	#apt-cache madison pure-ftpd-mysql | awk '{print $3}'
+	#TEST=$(apt-cache madison pure-ftpd-mysql | grep pure-ftpd-mysql | awk '{print $3}')
 }
