@@ -1,16 +1,7 @@
-require 'facter'
-
-Facter.add(:my_script_value) do
-    confine :kernel  => :linux
-    setcode do
-        Facter::Util::Resolution.exec("apt-cache madison pure-ftpd-mysql | grep pure-ftpd-mysql | awk '{print $3}'")
-    end
-end
-
 class ispconfig::test inherits ispconfig {
 
 	#$myversion = generate ("/bin/bash", "-c", "apt-cache madison pure-ftpd-mysql | grep pure-ftpd-mysql | awk '{print $3}'")
-	warning($::my_script_value)
+	warning($::pure_ftpd_version)
 
 	package { 'gawk':
 		ensure => latest,
