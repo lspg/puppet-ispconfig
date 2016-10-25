@@ -62,11 +62,6 @@ class ispconfig::ftp inherits ispconfig {
 			source => '/tmp/pure-ftpd-mysql/pure-ftpd-mysql-$::pure_ftpd_version.deb',
 		} ->
 
-		/*exec { 'pureftp-dpkg':
-			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
-			command => "dpkg -i /tmp/pure-ftpd-mysql/pure-ftpd-common*.deb && dpkg -i /tmp/pure-ftpd-mysql/pure-ftpd-mysql*.deb",
-		} ->*/
-
 		# Prevent pure-ftpd upgrading
 		exec { 'pureftp-apt-mark':
 			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
@@ -77,7 +72,7 @@ class ispconfig::ftp inherits ispconfig {
 		exec { 'pureftp-user':
 			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
 			command => "groupadd ftpgroup && useradd -g ftpgroup -d /dev/null -s /etc ftpuser",
-		}*/
+		}
 	}
 	else {
 		ensure_packages([
