@@ -1,12 +1,60 @@
 class ispconfig::ftp inherits ispconfig {
-	ensure_packages([
-		'pure-ftpd-common',
-		'pure-ftpd-mysql',
-		'quota',
-		'quotatool',
-	], {
-		'ensure' => 'installed',
-	})
+	if str2bool("$is_virtual") {
+		ensure_packages([
+			'dpkg-dev',
+			'debhelper',
+			'openbsd-inetd',
+		], {
+			'ensure' => 'installed',
+		})
+
+		exec { 'pureftp-build-dep':
+			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
+			command => 'apt-get -y build-dep pure-ftpd',
+			require => Package['dpkg-dev', 'debhelper', 'openbsd-inetd'],
+		} ->
+
+		file { '/tmp/pure-ftpd-mysql':
+			ensure => directory,
+		} ->
+
+		exec { 'pureftp-get-source':
+			cwd => '/tmp/pure-ftpd-mysql'
+			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
+			command => 'apt-get source pure-ftpd-mysql',
+		} ->
+
+		exec { 'pureftp-build':
+			cwd => '/tmp/pure-ftpd-mysql'
+			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
+			command => "cd pure-ftpd-* && sed -i '/^optflags=/ s/$/ --without-capabilities/g' ./debian/rules && dpkg-buildpackage -b -uc",
+		} ->
+
+		exec { 'pureftp-dpkg':
+			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
+			command => "dpkg -i /tmp/pure-ftpd-mysql/pure-ftpd-common*.deb && dpkg -i /tmp/pure-ftpd-mysql/pure-ftpd-mysql*.deb",
+		} ->
+
+		exec { 'pureftp-apt-mark':
+			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
+			command => "apt-mark hold pure-ftpd-common pure-ftpd-mysql",
+		} ->
+
+		exec { 'pureftp-user':
+			path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
+			command => "groupadd ftpgroup && useradd -g ftpgroup -d /dev/null -s /etc ftpuser",
+		}
+	}
+	else {
+		ensure_packages([
+			'pure-ftpd-common',
+			'pure-ftpd-mysql',
+			'quota',
+			'quotatool',
+		], {
+			'ensure' => 'installed',
+		})
+	}
 
 	exec { 'pureftp-virtualchroot':
 		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
