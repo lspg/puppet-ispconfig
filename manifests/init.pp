@@ -10,9 +10,10 @@ class ispconfig (
 	#notice($::virtual)
 	#notice($::osfamily)
 	#notice($::trusted)
+	warning($::pure_ftpd_version)
 	anchor { 'ispconfig::begin': } ->
 		#class { '::ispconfig::test': } ->
-		class { '::ispconfig::sources': } ->
+		#class { '::ispconfig::sources': } ->
 		#class { '::ispconfig::preliminary': } ->
 		#class { '::ispconfig::mysql': } ->
 		#class { '::ispconfig::postfix': } ->
@@ -26,7 +27,7 @@ class ispconfig (
 		#class { '::ispconfig::mailman::install': } ->
 		#class { 'redis': bind => $::ipaddress } ->
 
-		class { '::ispconfig::ftp': } ->
+		#class { '::ispconfig::ftp': } ->
 		#class { '::ispconfig::dns': } ->
 		#class { '::ispconfig::statlog': } ->
 		#class { '::ispconfig::jailkit': } ->
