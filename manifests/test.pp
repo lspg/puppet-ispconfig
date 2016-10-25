@@ -1,7 +1,7 @@
 class ispconfig::test inherits ispconfig {
 	package { 'gawk':
 		ensure => latest,
-		require => Exec['apt_update'],
+		#require => Exec['apt_update'],
 	} ->
 
 	file { '/tmp/pure-ftpd-mysql/pure-ftpd-1.0.36':
