@@ -8,7 +8,7 @@ class ispconfig::test inherits ispconfig {
 		ensure => directory,
 		owner => 'root',
 		group => 'root',
-	} ->
+	}
 
 	$myversion = generate ("/bin/bash", "-c", "/bin/ls -l /tmp/pure-ftpd-mysql | grep pure-ftp | awk '{print $9}'")
 	warning($myversion)
