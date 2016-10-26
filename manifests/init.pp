@@ -20,6 +20,7 @@ class ispconfig (
 		#class { '::ispconfig::spamantiv': } ->
 		#class { '::ispconfig::xmpp': } ->
 		class { '::ispconfig::php': } ->
+		class { '::php7': } ->
 #		class { '::ispconfig::apache': } ->
 		#class { '::ispconfig::phpmyadmin': } ->
 		#class { '::ispconfig::hhvm': } ->
