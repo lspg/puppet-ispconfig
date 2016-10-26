@@ -6,11 +6,17 @@ class ispconfig::jailkit inherits ispconfig {
 		'libtool',
 		'flex',
 		'bison',
-		'debhelper',
 	], {
 		'ensure' => 'installed',
 		'require' => Exec['apt_update'],
 	})
+
+	if ! defined(Package['debhelper']) { 
+		package { 'debhelper':
+			ensure => latest,
+			require => Exec['apt_update'],
+		}
+	}
 
 	if ! defined(Package['binutils']) { 
 		package { 'binutils':
