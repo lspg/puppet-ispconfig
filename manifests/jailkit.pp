@@ -47,7 +47,7 @@ class ispconfig::jailkit inherits ispconfig {
 	package { 'jailkit':
 		provider => dpkg,
 		ensure => present,
-		source => '/tmp/jailkit-2.19-1_amd64.deb',
+		source => '/tmp/jailkit_2.19-1_amd64.deb',
 	} ->
 
 	# Fix chrooted sftp : http://symka.blogspot.fr/2013/05/jailkit-ispconfig-ubuntu-1204-sftp.html
