@@ -127,10 +127,6 @@ class ispconfig::sources inherits ispconfig {
 		priority => 500,
 	} ->*/
 
-	Exec {
-		path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/', '/usr/local/bin', '/usr/local/sbin' ],
-	}
-
 	Exec['apt_update'] ->
 
 	exec { 'apt_upgrade':
