@@ -25,9 +25,11 @@ class ispconfig::preliminary inherits ispconfig {
 		command => 'echo "dash dash/sh boolean no" | debconf-set-selections && dpkg-reconfigure dash',
 	}
 
-	class { '::ntp':
-		package_ensure => installed,
-		require => Exec['apt_upgrade'],
+	if ! str2bool("$is_virtual") {
+		class { '::ntp':
+			package_ensure => installed,
+			require => Exec['apt_upgrade'],
+		}
 	}
 
 	# locales

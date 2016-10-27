@@ -10,7 +10,7 @@ class ispconfig (
 	#notice($::virtual)
 	#notice($::osfamily)
 	#notice($::trusted)
-	warning($::pure_ftpd_version)
+	#warning($::pure_ftpd_version)
 	anchor { 'ispconfig::begin': } ->
 		#class { '::ispconfig::test': } ->
 		class { '::ispconfig::sources': } ->
