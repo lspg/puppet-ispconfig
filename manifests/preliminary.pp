@@ -10,7 +10,8 @@ class ispconfig::preliminary inherits ispconfig {
 		'sudo',
 		'unzip',
 	], {
-		'ensure' => 'latest',
+		'ensure' => installed,
+		'require' => Exec['apt_update'],
 	})
 
 	# CONFIGURE HOSTNAME
@@ -25,13 +26,6 @@ class ispconfig::preliminary inherits ispconfig {
 		command => 'echo "dash dash/sh boolean no" | debconf-set-selections && dpkg-reconfigure dash',
 	}
 
-	if ! str2bool("$is_virtual") {
-		class { '::ntp':
-			package_ensure => installed,
-			require => Exec['apt_upgrade'],
-		}
-	}
-
 	# locales
 	class { 'locales':
 		default_locale  => 'fr_FR.UTF-8',
@@ -41,5 +35,16 @@ class ispconfig::preliminary inherits ispconfig {
 	# timezone
 	class { 'timezone':
 		timezone => 'Europe/Paris',
+	}
+
+	if ! str2bool("$is_virtual") {
+		warning('not virtual')
+		class { '::ntp':
+			package_ensure => installed,
+			require => Exec['apt_upgrade'],
+		}
+	}
+	else {
+		warning('virtual')
 	}
 }
