@@ -38,13 +38,9 @@ class ispconfig::preliminary inherits ispconfig {
 	}
 
 	if ! str2bool("$is_virtual") {
-		warning('not virtual')
 		class { '::ntp':
 			package_ensure => installed,
 			require => Exec['apt_upgrade'],
 		}
-	}
-	else {
-		warning('virtual')
 	}
 }

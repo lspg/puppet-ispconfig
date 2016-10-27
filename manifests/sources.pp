@@ -89,7 +89,6 @@ class ispconfig::sources inherits ispconfig {
 	class { 'dotdeb': } ->
 
 	# HHVM
-	# HHVM
 	apt::key { 'hhvm':
 		id      => '36AEF64D0207E7EEE352D4875A16E7281BE7A449',
 		server  => 'hkp://keyserver.ubuntu.com:80',
@@ -132,27 +131,16 @@ class ispconfig::sources inherits ispconfig {
 	exec { 'apt_upgrade':
 		command => 'apt-get update --fix-missing && apt-get -y --force-yes upgrade',
 		path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
-#		require => Exec['apt_update'],
-	} ->
-
-	# apt-transport-https
-	package { 'apt-transport-https':
-		ensure => 'installed',
-		install_options => '-y',
-		require => Exec['apt_update'],
-	} ->
-
-	# debian-keyring
-	package { 'debian-keyring':
-		ensure => 'installed',
-		install_options => '-y',
-		require => Exec['apt_update'],
-	} ->
-
-	# debian-archive-keyring
-	package { 'debian-archive-keyring':
-		ensure => 'installed',
-		install_options => '-y',
 		require => Exec['apt_update'],
 	}
+
+	ensure_packages([
+		'apt-transport-https',
+		'debian-keyring',
+		'debian-archive-keyring',
+	], {
+		'ensure' => installed,
+		'require' => Exec['apt_update'],
+		'install_options' => '-y',
+	})
 }
