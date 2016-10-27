@@ -33,6 +33,9 @@ class ispconfig::apache inherits ispconfig {
 		require => Exec['apt_update'],
 	}
 
+	apache::listen { '80': }
+	apache::listen { '443': }
+
 	apache::mod { 'auth_digest': }
 	class { 'apache::mod::actions': }
 	#class { 'apache::mod::alias': }
