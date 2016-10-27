@@ -35,7 +35,7 @@ class ispconfig (
 		#class { '::ispconfig::rainloop': } ->
 
 		exec { 'apt_remove':
-			command => 'apt-get -y autoremove',
+			command => 'apt-get -y autoremove && rm -Rf /tmp/*',
 			path    => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ],
 		} ->
 	anchor { 'ispconfig::end': }
